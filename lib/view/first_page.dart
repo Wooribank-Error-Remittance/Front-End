@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FirstPage extends StatelessWidget {
   @override
@@ -15,7 +16,7 @@ class FirstPage extends StatelessWidget {
             Image.asset(
               'assets/wooribank_logo.png',
               fit: BoxFit.contain,
-              height: 25,
+              height: ScreenUtil().setHeight(25),
             )
           ],
         ),
@@ -25,13 +26,13 @@ class FirstPage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: 40,
+            height: ScreenUtil().setHeight(40),
           ),
           Center(
             child: Container(
               margin: EdgeInsets.all(7),
-              width: 300,
-              height: 60,
+              width: ScreenUtil().setWidth(300),
+              height: ScreenUtil().setHeight(50),
               child: OutlinedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
@@ -43,7 +44,7 @@ class FirstPage extends StatelessWidget {
                     Image.asset(
                       'assets/icons/person_outline.png',
                       fit: BoxFit.contain,
-                      height: 16,
+                      height: ScreenUtil().setHeight(16),
                     ),
                     Text('   로그인'),
                   ],
@@ -54,8 +55,8 @@ class FirstPage extends StatelessWidget {
           Center(
             child: Container(
               margin: EdgeInsets.all(7),
-              width: 300,
-              height: 60,
+              width: ScreenUtil().setWidth(300),
+              height: ScreenUtil().setHeight(50),
               child: OutlinedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
@@ -67,7 +68,7 @@ class FirstPage extends StatelessWidget {
                     Image.asset(
                       'assets/icons/face_id.png',
                       fit: BoxFit.contain,
-                      height: 16,
+                      height: ScreenUtil().setHeight(16),
                     ),
                     Text("   우리은행 계좌 인증"),
                   ],

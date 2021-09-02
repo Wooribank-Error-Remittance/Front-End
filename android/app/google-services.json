@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "388497971434",
+    "project_id": "wooribank-error-remittance",
+    "storage_bucket": "wooribank-error-remittance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388497971434:android:ea2a550126e379ba241f93",
+        "android_client_info": {
+          "package_name": "com.wooribank.frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388497971434-m3b34da5iec8o74okp0afq10rdfkrk0b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV7BmFEx54XL-kT5hFP7HNPwhoZXEyFIw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388497971434-m3b34da5iec8o74okp0afq10rdfkrk0b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388497971434:android:403ea8820a76b646241f93",
+        "android_client_info": {
+          "package_name": "com.wooribank.frontend.wooribank_error_remittance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388497971434-m3b34da5iec8o74okp0afq10rdfkrk0b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV7BmFEx54XL-kT5hFP7HNPwhoZXEyFIw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388497971434-m3b34da5iec8o74okp0afq10rdfkrk0b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

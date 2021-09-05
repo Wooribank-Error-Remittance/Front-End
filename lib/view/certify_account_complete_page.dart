@@ -3,6 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wooribank_error_remittance/view/sign_up_page.dart';
 
 class CertifyAccountCompletePage extends StatelessWidget {
+  final String name;
+  final String phoneNumber;
+
+  CertifyAccountCompletePage({required this.name, required this.phoneNumber});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +45,10 @@ class CertifyAccountCompletePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRouteWithoutAnimation(
-                    builder: (context) => SignUpPage(),
+                    builder: (context) => SignUpPage(
+                      name: name,
+                      phoneNumber: phoneNumber,
+                    ),
                   ),
                 );
               },

@@ -5,6 +5,7 @@ import 'package:wooribank_error_remittance/view/sign_up_page.dart';
 import 'first_page.dart';
 
 class SignUpCompletePage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
@@ -5,10 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wooribank_error_remittance/view/sign_up_complete_page.dart';
+import 'package:http/http.dart' as http;
 
 import 'certify_account_complete_page.dart';
 
 class SignUpPage extends StatefulWidget {
+  final String name;
+  final String phoneNumber;
+
+  SignUpPage({required this.name, required this.phoneNumber});
+
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -22,7 +29,7 @@ class _SignUpState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -102,7 +109,8 @@ class _SignUpState extends State<SignUpPage> {
           Spacer(),
           IconButton(
             onPressed: () {
-              if (passwordController.text!=passwordCheckController.text||passwordController.text.length<8) {
+              if (passwordController.text != passwordCheckController.text ||
+                  passwordController.text.length < 8) {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -119,14 +127,10 @@ class _SignUpState extends State<SignUpPage> {
                     );
                   },
                 );
-              }
-              else {
-                Navigator.push(
-                  context,
-                  MaterialPageRouteWithoutAnimation(
-                    builder: (context) => SignUpCompletePage(),
-                  ),
-                );
+              } else {
+                try {
+                  _SignUpAndLoadAccounts();
+                } finally {}
               }
             },
             icon: Image.asset('assets/button_accept.png'),
@@ -137,11 +141,69 @@ class _SignUpState extends State<SignUpPage> {
     );
   }
 
+  Future<dynamic> _SignUpAndLoadAccounts() async {
+    http.Response response = await http.post(
+      Uri.parse(
+          "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/sign/complete"),
+      headers: {
+        "content-type": "application/json",
+      },
+      body: json.encode({
+        "name": widget.name,
+        "password": passwordController.text,
+        "phoneNumber": widget.phoneNumber,
+        "userId": idController.text
+      }),
+    );
 
+    print(response.statusCode);
+
+    http.Response response2 = await http.post(
+      Uri.parse(
+          "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/account/update/all"),
+      headers: {
+        "content-type": "application/json",
+      },
+      body: json.encode(
+          {"password": passwordController.text, "userId": idController.text}),
+    );
+    print(response2.statusCode);
+
+    if (response.statusCode == 200 && response2.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRouteWithoutAnimation(
+          builder: (context) => SignUpCompletePage(),
+        ),
+      );
+    }
+    else {
+      print('no!!');
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: new Text("\n오류가 발생했습니다.\n다시 시도해주세요."),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    return response;
+  }
 }
 
 class MaterialPageRouteWithoutAnimation extends MaterialPageRoute {
   MaterialPageRouteWithoutAnimation({builder}) : super(builder: builder);
+
   @override
   Duration get transitionDuration => const Duration(milliseconds: 0);
 }

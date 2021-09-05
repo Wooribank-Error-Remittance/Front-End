@@ -29,7 +29,7 @@ class _CertifyAccountState extends State<CertifyAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -239,32 +239,31 @@ class _CertifyAccountState extends State<CertifyAccountPage> {
                 Navigator.push(
                   context,
                   MaterialPageRouteWithoutAnimation(
-                    builder: (context) => CertifyAccountCompletePage(),
+                    builder: (context) => CertifyAccountCompletePage(
+                      name: nameController.text,
+                      phoneNumber: "+8210" +
+                          phoneNumberController2.text.trim() +
+                          phoneNumberController3.text.trim(),
+                    ),
                   ),
                 );
               } else {
-                Navigator.push(
-                  context,
-                  MaterialPageRouteWithoutAnimation(
-                    builder: (context) => CertifyAccountCompletePage(),
-                  ),
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: new Text("\n입력 및 인증 절차를 완료해주세요."),
+                      actions: <Widget>[
+                        new FlatButton(
+                          child: new Text("확인"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    );
+                  },
                 );
-                // showDialog(
-                //   context: context,
-                //   builder: (BuildContext context) {
-                //     return AlertDialog(
-                //       content: new Text("\n입력 및 인증 절차를 완료해주세요."),
-                //       actions: <Widget>[
-                //         new FlatButton(
-                //           child: new Text("확인"),
-                //           onPressed: () {
-                //             Navigator.pop(context);
-                //           },
-                //         ),
-                //       ],
-                //     );
-                //   },
-                // );
               }
             },
             icon: Image.asset('assets/button_accept.png'),

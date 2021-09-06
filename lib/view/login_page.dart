@@ -21,7 +21,7 @@ class _LoginState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -81,10 +81,13 @@ class _LoginState extends State<LoginPage> {
           Spacer(),
           IconButton(
             onPressed: () {
-              MaterialPageRouteWithoutAnimation(
-                builder: (context) => LoginCompletePage(),
+              Navigator.push(
+                context,
+                MaterialPageRouteWithoutAnimation(
+                  builder: (context) => LoginCompletePage(),
+                ),
               );
-              },
+            },
             icon: Image.asset('assets/button_accept.png'),
             iconSize: 80,
           ),
@@ -92,12 +95,11 @@ class _LoginState extends State<LoginPage> {
       ),
     );
   }
-
-
 }
 
 class MaterialPageRouteWithoutAnimation extends MaterialPageRoute {
   MaterialPageRouteWithoutAnimation({builder}) : super(builder: builder);
+
   @override
   Duration get transitionDuration => const Duration(milliseconds: 0);
 }

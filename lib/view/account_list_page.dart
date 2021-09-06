@@ -3,7 +3,9 @@ import 'dart:core';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:wooribank_error_remittance/view/first_page.dart';
+import 'package:wooribank_error_remittance/view/received_return_request_list_page.dart';
+import 'package:wooribank_error_remittance/view/report_list_page.dart';
+import 'package:wooribank_error_remittance/view/sent_return_request_list_page.dart';
 
 class AccountListPage extends StatefulWidget {
   @override
@@ -69,7 +71,14 @@ class _AccountListState extends State<AccountListPage> {
               children: [
                 Divider(height: 3),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRouteWithoutAnimation(
+                        builder: (context) => SentReturnRequestListPage(),
+                      ),
+                    );
+                  },
                   style: TextButton.styleFrom(
                     primary: Colors.black87,
                   ),
@@ -82,7 +91,14 @@ class _AccountListState extends State<AccountListPage> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRouteWithoutAnimation(
+                        builder: (context) => ReceivedReturnRequestListPage(),
+                      ),
+                    );
+                  },
                   style: TextButton.styleFrom(
                     primary: Colors.black87,
                   ),
@@ -109,7 +125,7 @@ class _AccountListState extends State<AccountListPage> {
                 Navigator.push(
                   context,
                   MaterialPageRouteWithoutAnimation(
-                    builder: (context) => FirstPage(),
+                    builder: (context) => ReportListPage(),
                   ),
                 );
               },

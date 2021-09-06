@@ -26,7 +26,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-#  uses-material-design: true
+   uses-material-design: true
    assets:
      - assets/ic_launcher.png
      - assets/wooribank_logo.png

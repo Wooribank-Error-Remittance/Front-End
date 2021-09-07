@@ -78,11 +78,9 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
                         ),
                       );
                     },
-                    child: FittedBox(
-                      child: Text(
-                        textEditingControllers[1].text,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    child: Text(
+                      textEditingControllers[1].text,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   onButtonOpened: () {

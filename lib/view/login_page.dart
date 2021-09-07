@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:wooribank_error_remittance/view/login_complete_page.dart';
 import 'package:wooribank_error_remittance/view/sign_up_complete_page.dart';
 
 import 'certify_account_complete_page.dart';
@@ -20,7 +21,7 @@ class _LoginState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -80,7 +81,13 @@ class _LoginState extends State<LoginPage> {
           Spacer(),
           IconButton(
             onPressed: () {
-              },
+              Navigator.push(
+                context,
+                MaterialPageRouteWithoutAnimation(
+                  builder: (context) => LoginCompletePage(),
+                ),
+              );
+            },
             icon: Image.asset('assets/button_accept.png'),
             iconSize: 80,
           ),
@@ -88,12 +95,11 @@ class _LoginState extends State<LoginPage> {
       ),
     );
   }
-
-
 }
 
 class MaterialPageRouteWithoutAnimation extends MaterialPageRoute {
   MaterialPageRouteWithoutAnimation({builder}) : super(builder: builder);
+
   @override
   Duration get transitionDuration => const Duration(milliseconds: 0);
 }

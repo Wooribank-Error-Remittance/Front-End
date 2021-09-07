@@ -169,10 +169,77 @@ class _AccountListState extends State<AccountListPage> {
               child: Text(
                 '계좌',
                 style: TextStyle(
-                    color: Colors.blue[700],
+                    color: Color(0xFF0364AD),
                     fontSize: ScreenUtil().setSp(20),
                     fontWeight: FontWeight.w800),
               ),
+            ),
+          ),
+          Expanded(
+            child: ListView.separated(
+              separatorBuilder: (BuildContext context, int index) {
+                return SizedBox(height: ScreenUtil().setHeight(30));
+              },
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: 20,
+              itemBuilder: (BuildContext context, int index) {
+                return Align(
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: ScreenUtil().setHeight(5),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '계좌 종류',
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(20),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '계좌 번호',
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(25),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            '잔액',
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(25),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: ScreenUtil().setHeight(10),
+                        )
+                      ],
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(ScreenUtil().setWidth(300),
+                          ScreenUtil().setHeight(100)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      primary: (index % 2 == 0)
+                          ? Color(0xFF3E97F7)
+                          : Color(0xFF1C65B9), // background
+                      // onPrimary: Colors.white, // foreground
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],

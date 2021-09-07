@@ -48,89 +48,92 @@ class _AccountListState extends State<AccountListPage> {
           ),
         ],
       ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Container(
-              height: ScreenUtil().setHeight(50),
-              child: const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
+      endDrawer: Container(
+        width: ScreenUtil().setWidth(210),
+        child: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              Container(
+                height: ScreenUtil().setHeight(50),
+                child: const DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                  child: Text(''),
                 ),
-                child: Text(''),
               ),
-            ),
-            ExpansionTile(
-              title: new Text(
-                "반환 현황",
-                style: TextStyle(
-                    fontSize: ScreenUtil().setSp(16),
-                    fontWeight: FontWeight.w500),
-              ),
-              children: [
-                Divider(height: 3),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRouteWithoutAnimation(
-                        builder: (context) => SentReturnRequestListPage(),
-                      ),
-                    );
-                  },
-                  style: TextButton.styleFrom(
-                    primary: Colors.black87,
-                  ),
-                  child: Row(
-                    children: [
-                      Text("   보낸 요청 목록"),
-                      Spacer(),
-                      Icon(Icons.chevron_right),
-                    ],
-                  ),
+              ExpansionTile(
+                title: new Text(
+                  "반환 현황",
+                  style: TextStyle(
+                      fontSize: ScreenUtil().setSp(16),
+                      fontWeight: FontWeight.w500),
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRouteWithoutAnimation(
-                        builder: (context) => ReceivedReturnRequestListPage(),
-                      ),
-                    );
-                  },
-                  style: TextButton.styleFrom(
-                    primary: Colors.black87,
+                children: [
+                  Divider(height: 3),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRouteWithoutAnimation(
+                          builder: (context) => SentReturnRequestListPage(),
+                        ),
+                      );
+                    },
+                    style: TextButton.styleFrom(
+                      primary: Colors.black87,
+                    ),
+                    child: Row(
+                      children: [
+                        Text("   보낸 요청 목록"),
+                        Spacer(),
+                        Icon(Icons.chevron_right),
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    children: [
-                      Text("   받은 요청 목록"),
-                      Spacer(),
-                      Icon(Icons.chevron_right),
-                    ],
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRouteWithoutAnimation(
+                          builder: (context) => ReceivedReturnRequestListPage(),
+                        ),
+                      );
+                    },
+                    style: TextButton.styleFrom(
+                      primary: Colors.black87,
+                    ),
+                    child: Row(
+                      children: [
+                        Text("   받은 요청 목록"),
+                        Spacer(),
+                        Icon(Icons.chevron_right),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-            ExpansionTile(
-              title: new Text(
-                "신고건 목록",
-                style: TextStyle(
-                    fontSize: ScreenUtil().setSp(16),
-                    fontWeight: FontWeight.w500),
+                ],
               ),
-              children: [],
-              trailing: Icon(Icons.chevron_right),
-              onExpansionChanged: (bool isExpanded) {
-                Navigator.push(
-                  context,
-                  MaterialPageRouteWithoutAnimation(
-                    builder: (context) => ReportListPage(),
-                  ),
-                );
-              },
-            ),
-          ],
+              ExpansionTile(
+                title: new Text(
+                  "신고건 목록",
+                  style: TextStyle(
+                      fontSize: ScreenUtil().setSp(16),
+                      fontWeight: FontWeight.w500),
+                ),
+                children: [],
+                trailing: Icon(Icons.chevron_right),
+                onExpansionChanged: (bool isExpanded) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRouteWithoutAnimation(
+                      builder: (context) => ReportListPage(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
       body: Column(

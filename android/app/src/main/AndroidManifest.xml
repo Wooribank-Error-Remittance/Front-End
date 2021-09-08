@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wooribank.frontend.wooribank_error_remittance">
    <application
-        android:label="wooribank_error_remittance"
+        android:label="착오송금반환서비스"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

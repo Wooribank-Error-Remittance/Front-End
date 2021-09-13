@@ -143,19 +143,19 @@ class _AccountListState extends State<AccountListPage> {
           ),
           Center(
             child: Container(
-              width: ScreenUtil().setWidth(300),
+              width: ScreenUtil().setWidth(290),
               height: ScreenUtil().setHeight(35),
               child: Text(
                 name + '님',
                 style: TextStyle(
                     fontSize: ScreenUtil().setSp(20),
-                    fontWeight: FontWeight.w800),
+                    fontWeight: FontWeight.w500),
               ),
             ),
           ),
           Center(
             child: Container(
-              width: ScreenUtil().setWidth(300),
+              width: ScreenUtil().setWidth(290),
               height: ScreenUtil().setHeight(1),
               child: Divider(
                 thickness: 1.2,
@@ -163,87 +163,221 @@ class _AccountListState extends State<AccountListPage> {
             ),
           ),
           SizedBox(
-            height: ScreenUtil().setHeight(15),
+            height: ScreenUtil().setHeight(18),
           ),
-          Center(
-            child: Container(
-              width: ScreenUtil().setWidth(300),
-              height: ScreenUtil().setHeight(35),
-              child: Text(
-                '계좌',
-                style: TextStyle(
-                    color: Color(0xFF0364AD),
-                    fontSize: ScreenUtil().setSp(20),
-                    fontWeight: FontWeight.w800),
+          ElevatedButton(
+            onPressed: () {},
+            child: Column(
+              children: [
+                SizedBox(
+                  height: ScreenUtil().setHeight(11),
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'WON 통장',
+                    style: TextStyle(
+                        fontSize: ScreenUtil().setSp(16),
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                SizedBox(
+                  height: ScreenUtil().setHeight(6),
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '1002-123-456789',
+                    style: TextStyle(
+                      fontSize: ScreenUtil().setSp(20),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                Spacer(),
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    '잔액',
+                    style: TextStyle(
+                      fontSize: ScreenUtil().setSp(25),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: ScreenUtil().setHeight(10),
+                ),
+              ],
+            ),
+            style: ElevatedButton.styleFrom(
+              fixedSize:
+                  Size(ScreenUtil().setWidth(295), ScreenUtil().setHeight(120)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              primary: Color(0xFF1690F0),
+            ),
+          ),
+          SizedBox(
+            height: ScreenUtil().setHeight(16),
+          ),
+          Container(
+            child: Expanded(
+              child: Container(
+                decoration: new BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: new BorderRadius.circular(10.0),
+                ),
+                // color: Colors.white,
+                width: ScreenUtil().setWidth(300),
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: 3,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: ScreenUtil().setHeight(25),
+                                  width: ScreenUtil().setHeight(25),
+                                  child: Image.asset(
+                                    'assets/wooribank_account_logo.png',
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(10),
+                                ),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'WON 통장',
+                                      style: TextStyle(
+                                        color: Color(0xFFA7A7A7),
+                                        fontSize: ScreenUtil().setSp(12),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    Text(
+                                      '300,000 원',
+                                      style: TextStyle(
+                                        color: Color(0xFF3A3A3A),
+                                        fontSize: ScreenUtil().setSp(15),
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Spacer(),
+                                Icon(
+                                  Icons.chevron_right,
+                                  color: Color(0xFF3A3A3A),
+                                  size: ScreenUtil().setSp(20),
+                                ),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(6),
+                                )
+                              ],
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              padding: EdgeInsets.fromLTRB(
+                                  ScreenUtil().setSp(14),
+                                  ScreenUtil().setSp(10),
+                                  ScreenUtil().setSp(14),
+                                  ScreenUtil().setSp(10)),
+                              fixedSize: Size(ScreenUtil().setWidth(300),
+                                  ScreenUtil().setHeight(50)),
+                              primary: Colors.white, // background
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          height: 2,
+                          indent: ScreenUtil().setWidth(10),
+                          endIndent: ScreenUtil().setWidth(10),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ),
-          Expanded(
-            child: ListView.separated(
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(height: ScreenUtil().setHeight(30));
-              },
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: 20,
-              itemBuilder: (BuildContext context, int index) {
-                return Align(
-                  alignment: Alignment.center,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: ScreenUtil().setHeight(5),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '계좌 종류',
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(20),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '계좌 번호',
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(25),
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Container(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            '잔액',
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(25),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: ScreenUtil().setHeight(10),
-                        )
-                      ],
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(ScreenUtil().setWidth(300),
-                          ScreenUtil().setHeight(100)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      primary: (index % 2 == 0)
-                          ? Color(0xFF3E97F7)
-                          : Color(0xFF1C65B9), // background
-                      // onPrimary: Colors.white, // foreground
-                    ),
-                  ),
-                );
-              },
+          SizedBox(
+            height: ScreenUtil().setHeight(8),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text(
+              '+',
+              style: TextStyle(
+                  color: Color(0xFF717171),
+                  fontSize: ScreenUtil().setSp(19),
+                  fontWeight: FontWeight.w400),
             ),
+            style: ElevatedButton.styleFrom(
+              fixedSize:
+                  Size(ScreenUtil().setWidth(280), ScreenUtil().setHeight(33)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              primary: Color(0xFFFAFAFA),
+            ),
+          ),
+          Container(
+            width: ScreenUtil().setWidth(280),
+            child: Divider(
+              height: ScreenUtil().setHeight(25),
+              thickness: ScreenUtil().setSp(1.3),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/icons/xrp.png',
+                  fit: BoxFit.contain,
+                  height: ScreenUtil().setHeight(16),
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: ScreenUtil().setWidth(10),
+                ),
+                Text(
+                  '우리 WON 뱅킹 바로가기',
+                  style: TextStyle(
+                      fontSize: ScreenUtil().setSp(15),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800),
+                ),
+              ],
+            ),
+            style: ElevatedButton.styleFrom(
+              fixedSize:
+                  Size(ScreenUtil().setWidth(280), ScreenUtil().setHeight(40)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              primary: Color(0xFF1690F0),
+            ),
+          ),
+          SizedBox(
+            height: ScreenUtil().setHeight(45),
           ),
         ],
       ),

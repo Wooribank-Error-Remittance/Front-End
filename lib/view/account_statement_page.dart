@@ -7,13 +7,12 @@ import 'package:slide_button/slide_button.dart';
 
 import 'account_list_page.dart';
 
-class ReceivedReturnRequestListPage extends StatefulWidget {
+class AccountStatementPage extends StatefulWidget {
   @override
-  _ReceivedReturnRequestListState createState() => _ReceivedReturnRequestListState();
+  _AccountStatementState createState() => _AccountStatementState();
 }
 
-class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPage> {
-
+class _AccountStatementState extends State<AccountStatementPage> {
   List<String> tempList = ['1', '2,' '3'];
   var textEditingControllers = <TextEditingController>[];
 
@@ -28,7 +27,7 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
 
   @override
   Widget build(BuildContext context) {
-    return  WillPopScope(
+    return WillPopScope(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -43,7 +42,8 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
             },
             icon: Icon(
               Icons.chevron_left,
-              color: Colors.black87,
+              color: Colors.white,
+              size: ScreenUtil().setSp(30),
             ),
           ),
           automaticallyImplyLeading: false,
@@ -51,348 +51,15 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
           title: Text(
             '받은 요청 목록',
             style: TextStyle(
-              color: Colors.black87,
+              color: Colors.white,
               fontSize: ScreenUtil().setSp(18),
             ),
           ),
-          backgroundColor: Colors.transparent,
+          backgroundColor: Color(0xFF1C65B9),
           elevation: 0.0,
         ),
         body: Column(
-          children: <Widget>[
-            IntrinsicHeight(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: ScreenUtil().setWidth(20),
-                  ),
-                  Text(
-                    '6.28\n\n\n',
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(15),
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Container(
-                    height: ScreenUtil().setHeight(100),
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      width: ScreenUtil().setWidth(5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Center(
-                    child: Container(
-                      width: ScreenUtil().setWidth(260),
-                      height: ScreenUtil().setHeight(80),
-                      child: SlideButton(
-                        backgroundChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            fixedSize: Size(ScreenUtil().setWidth(260),
-                                ScreenUtil().setHeight(80)),
-                            primary: Color(0xFF3297F7),
-                          ),
-                          onPressed: () {},
-                          child: Text(''),
-                        ),
-                        backgroundColor: Colors.transparent,
-                        slidingChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            primary: Color(0xFFFF766D),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRouteWithoutAnimation(
-                                builder: (context) => AccountListPage(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            textEditingControllers[1].text,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        onButtonOpened: () {
-                          setState(() {
-                            textEditingControllers[1].text = "신고하기";
-                          });
-                        },
-                        onButtonClosed: () {
-                          WidgetsBinding.instance!
-                              .addPostFrameCallback((_) => setState(() {
-                            textEditingControllers[1].text = " ";
-                          }));
-                        },
-                        slideDirection: SlideDirection.LEFT,
-                        initialSliderPercentage: 0.14,
-                        confirmPercentage: 0.5,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            IntrinsicHeight(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: ScreenUtil().setWidth(20),
-                  ),
-                  Text(
-                    '6.28\n\n\n',
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(15),
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Container(
-                    height: ScreenUtil().setHeight(100),
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      width: ScreenUtil().setWidth(5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Center(
-                    child: Container(
-                      width: ScreenUtil().setWidth(260),
-                      height: ScreenUtil().setHeight(80),
-                      child: SlideButton(
-                        backgroundChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            fixedSize: Size(ScreenUtil().setWidth(260),
-                                ScreenUtil().setHeight(80)),
-                            primary: Color(0xFF3297F7),
-                          ),
-                          onPressed: () {},
-                          child: Text(''),
-                        ),
-                        backgroundColor: Colors.transparent,
-                        slidingChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            primary: Color(0xFFFF766D),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRouteWithoutAnimation(
-                                builder: (context) => AccountListPage(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            textEditingControllers[1].text,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        onButtonOpened: () {
-                          setState(() {
-                            textEditingControllers[1].text = "신고하기";
-                          });
-                        },
-                        onButtonClosed: () {
-                          WidgetsBinding.instance!
-                              .addPostFrameCallback((_) => setState(() {
-                            textEditingControllers[1].text = " ";
-                          }));
-                        },
-                        slideDirection: SlideDirection.LEFT,
-                        initialSliderPercentage: 0.14,
-                        confirmPercentage: 0.5,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            IntrinsicHeight(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: ScreenUtil().setWidth(20),
-                  ),
-                  Text(
-                    '6.28\n\n\n',
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(15),
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Container(
-                    height: ScreenUtil().setHeight(100),
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      width: ScreenUtil().setWidth(5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Center(
-                    child: Container(
-                      width: ScreenUtil().setWidth(260),
-                      height: ScreenUtil().setHeight(80),
-                      child: SlideButton(
-                        backgroundChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            fixedSize: Size(ScreenUtil().setWidth(260),
-                                ScreenUtil().setHeight(80)),
-                            primary: Color(0xFF3297F7),
-                          ),
-                          onPressed: () {},
-                          child: Text(''),
-                        ),
-                        backgroundColor: Colors.transparent,
-                        slidingChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            primary: Color(0xFFFF766D),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRouteWithoutAnimation(
-                                builder: (context) => AccountListPage(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            textEditingControllers[1].text,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        onButtonOpened: () {
-                          setState(() {
-                            textEditingControllers[1].text = "신고하기";
-                          });
-                        },
-                        onButtonClosed: () {
-                          WidgetsBinding.instance!
-                              .addPostFrameCallback((_) => setState(() {
-                            textEditingControllers[1].text = " ";
-                          }));
-                        },
-                        slideDirection: SlideDirection.LEFT,
-                        initialSliderPercentage: 0.14,
-                        confirmPercentage: 0.5,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            IntrinsicHeight(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: ScreenUtil().setWidth(20),
-                  ),
-                  Text(
-                    '6.28\n\n\n',
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(15),
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Container(
-                    height: ScreenUtil().setHeight(100),
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      width: ScreenUtil().setWidth(5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Center(
-                    child: Container(
-                      width: ScreenUtil().setWidth(260),
-                      height: ScreenUtil().setHeight(80),
-                      child: SlideButton(
-                        backgroundChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            fixedSize: Size(ScreenUtil().setWidth(260),
-                                ScreenUtil().setHeight(80)),
-                            primary: Color(0xFF3297F7),
-                          ),
-                          onPressed: () {},
-                          child: Text(''),
-                        ),
-                        backgroundColor: Colors.transparent,
-                        slidingChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            primary: Color(0xFFFF766D),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRouteWithoutAnimation(
-                                builder: (context) => AccountListPage(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            textEditingControllers[1].text,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        onButtonOpened: () {
-                          setState(() {
-                            textEditingControllers[1].text = "신고하기";
-                          });
-                        },
-                        onButtonClosed: () {
-                          WidgetsBinding.instance!
-                              .addPostFrameCallback((_) => setState(() {
-                            textEditingControllers[1].text = " ";
-                          }));
-                        },
-                        slideDirection: SlideDirection.LEFT,
-                        initialSliderPercentage: 0.14,
-                        confirmPercentage: 0.5,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          children: <Widget>[],
         ),
       ),
       onWillPop: () async {

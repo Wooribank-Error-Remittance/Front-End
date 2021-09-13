@@ -43,6 +43,7 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
             icon: Icon(
               Icons.chevron_left,
               color: Colors.black87,
+              size: ScreenUtil().setSp(30),
             ),
           ),
           automaticallyImplyLeading: false,

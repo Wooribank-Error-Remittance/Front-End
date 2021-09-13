@@ -44,6 +44,7 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
             icon: Icon(
               Icons.chevron_left,
               color: Colors.black87,
+              size: ScreenUtil().setSp(30),
             ),
           ),
           automaticallyImplyLeading: false,

@@ -32,6 +32,7 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          toolbarHeight: ScreenUtil().setHeight(40),
           leading: IconButton(
             onPressed: () {
               Navigator.push(
@@ -53,7 +54,7 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
             '받은 요청 목록',
             style: TextStyle(
               color: Colors.black87,
-              fontSize: ScreenUtil().setSp(18),
+              fontSize: ScreenUtil().setSp(16),
             ),
           ),
           backgroundColor: Colors.transparent,

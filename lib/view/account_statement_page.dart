@@ -31,6 +31,7 @@ class _AccountStatementState extends State<AccountStatementPage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          toolbarHeight: ScreenUtil().setHeight(40),
           leading: IconButton(
             onPressed: () {
               Navigator.push(
@@ -49,10 +50,10 @@ class _AccountStatementState extends State<AccountStatementPage> {
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text(
-            '받은 요청 목록',
+            '거래내역조회',
             style: TextStyle(
               color: Colors.white,
-              fontSize: ScreenUtil().setSp(18),
+              fontSize: ScreenUtil().setSp(16),
             ),
           ),
           backgroundColor: Color(0xFF1C65B9),

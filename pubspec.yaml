@@ -25,15 +25,17 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-   uses-material-design: true
-   assets:
-     - assets/ic_launcher.png
-     - assets/wooribank_logo.png
-     - assets/wooribank_account_logo.png
-     - assets/icons/face_id.png
-     - assets/icons/person_outline.png
-     - assets/icons/xrp.png
-     - assets/button_accept.png
+  uses-material-design: true
+  assets:
+    - assets/ic_launcher.png
+    - assets/wooribank_logo.png
+    - assets/wooribank_account_logo.png
+    - assets/icons/face_id.png
+    - assets/icons/person_outline.png
+    - assets/icons/xrp.png
+    - assets/button_accept.png
+    - assets/button_decline.png
+    - assets/button_send.png
 
 flutter_native_splash:
   image: assets/ic_launcher.png # size: 900x900

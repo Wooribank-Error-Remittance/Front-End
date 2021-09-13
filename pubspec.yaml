@@ -29,8 +29,10 @@ flutter:
    assets:
      - assets/ic_launcher.png
      - assets/wooribank_logo.png
+     - assets/wooribank_account_logo.png
      - assets/icons/face_id.png
      - assets/icons/person_outline.png
+     - assets/icons/xrp.png
      - assets/button_accept.png
 
 flutter_native_splash:

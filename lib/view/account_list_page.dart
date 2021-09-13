@@ -7,6 +7,8 @@ import 'package:wooribank_error_remittance/view/received_return_request_list_pag
 import 'package:wooribank_error_remittance/view/report_list_page.dart';
 import 'package:wooribank_error_remittance/view/sent_return_request_list_page.dart';
 
+import 'account_statement_page.dart';
+
 class AccountListPage extends StatefulWidget {
   @override
   _AccountListState createState() => _AccountListState();
@@ -166,7 +168,14 @@ class _AccountListState extends State<AccountListPage> {
             height: ScreenUtil().setHeight(18),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRouteWithoutAnimation(
+                  builder: (context) => AccountStatementPage(),
+                ),
+              );
+            },
             child: Column(
               children: [
                 SizedBox(
@@ -210,6 +219,8 @@ class _AccountListState extends State<AccountListPage> {
               ],
             ),
             style: ElevatedButton.styleFrom(
+              splashFactory: NoSplash.splashFactory,
+              animationDuration: Duration(days: 10000),
               fixedSize:
                   Size(ScreenUtil().setWidth(295), ScreenUtil().setHeight(120)),
               shape: RoundedRectangleBorder(
@@ -240,7 +251,14 @@ class _AccountListState extends State<AccountListPage> {
                         Align(
                           alignment: Alignment.center,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRouteWithoutAnimation(
+                                  builder: (context) => AccountStatementPage(),
+                                ),
+                              );
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -289,6 +307,8 @@ class _AccountListState extends State<AccountListPage> {
                               ],
                             ),
                             style: ElevatedButton.styleFrom(
+                              splashFactory: NoSplash.splashFactory,
+                              shadowColor: Colors.transparent,
                               elevation: 0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -329,6 +349,8 @@ class _AccountListState extends State<AccountListPage> {
                   fontWeight: FontWeight.w400),
             ),
             style: ElevatedButton.styleFrom(
+              splashFactory: NoSplash.splashFactory,
+              animationDuration: Duration(days: 10000),
               fixedSize:
                   Size(ScreenUtil().setWidth(280), ScreenUtil().setHeight(33)),
               shape: RoundedRectangleBorder(
@@ -368,6 +390,8 @@ class _AccountListState extends State<AccountListPage> {
               ],
             ),
             style: ElevatedButton.styleFrom(
+              animationDuration: Duration(days: 10000),
+              splashFactory: NoSplash.splashFactory,
               fixedSize:
                   Size(ScreenUtil().setWidth(280), ScreenUtil().setHeight(40)),
               shape: RoundedRectangleBorder(

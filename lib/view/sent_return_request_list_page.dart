@@ -176,8 +176,8 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Container(
-                                            height: ScreenUtil().setHeight(28),
-                                            width: ScreenUtil().setWidth(28),
+                                            height: ScreenUtil().setHeight(33),
+                                            width: ScreenUtil().setWidth(33),
                                             child: ElevatedButton(
                                               onPressed: null,
                                               child: Image.asset(
@@ -186,13 +186,6 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
                                                 padding: EdgeInsets.all(0),
                                                 onSurface: Color(0xFFDEECFF),
                                               ),
-                                            ),
-                                          ),
-                                          Text(
-                                            '신고하기',
-                                            style: TextStyle(
-                                              fontSize: ScreenUtil().setSp(8),
-                                              fontWeight: FontWeight.w900,
                                             ),
                                           ),
                                         ],

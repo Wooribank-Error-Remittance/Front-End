@@ -33,6 +33,9 @@ flutter:
     - assets/icons/face_id.png
     - assets/icons/person_outline.png
     - assets/icons/xrp.png
+    - assets/icons/report_red.png
+    - assets/icons/report_blue.png
+    - assets/icons/return_accept.png
     - assets/button_accept.png
     - assets/button_decline.png
     - assets/button_send.png

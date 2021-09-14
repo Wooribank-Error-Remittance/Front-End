@@ -22,11 +22,13 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
       var textEditingController = new TextEditingController();
       textEditingControllers.add(textEditingController);
     });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
     return WillPopScope(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -61,336 +63,164 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
         ),
         body: Column(
           children: <Widget>[
-            IntrinsicHeight(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: ScreenUtil().setWidth(20),
-                  ),
-                  Text(
-                    '6.28\n\n\n',
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(15),
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Container(
-                    height: ScreenUtil().setHeight(100),
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      width: ScreenUtil().setWidth(5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Center(
-                    child: Container(
-                      width: ScreenUtil().setWidth(260),
-                      height: ScreenUtil().setHeight(80),
-                      child: SlideButton(
-                        backgroundChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            fixedSize: Size(ScreenUtil().setWidth(260),
-                                ScreenUtil().setHeight(80)),
-                            primary: Color(0xFF3297F7),
-                          ),
-                          onPressed: () {},
-                          child: Text(''),
-                        ),
-                        backgroundColor: Colors.transparent,
-                        slidingChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            primary: Color(0xFFFF766D),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRouteWithoutAnimation(
-                                builder: (context) => AccountListPage(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            textEditingControllers[1].text,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        onButtonOpened: () {
-                          setState(() {
-                            textEditingControllers[1].text = "신고하기";
-                          });
-                        },
-                        onButtonClosed: () {
-                          WidgetsBinding.instance!
-                              .addPostFrameCallback((_) => setState(() {
-                                    textEditingControllers[1].text = " ";
-                                  }));
-                        },
-                        slideDirection: SlideDirection.LEFT,
-                        initialSliderPercentage: 0.14,
-                        confirmPercentage: 0.5,
-                      ),
-                    ),
-                  ),
-                ],
+            Center(
+              child: SizedBox(
+                height: ScreenUtil().setHeight(20),
               ),
             ),
-            IntrinsicHeight(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: ScreenUtil().setWidth(20),
+            Container(
+              child: Expanded(
+                child: Container(
+                  decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: new BorderRadius.circular(10.0),
                   ),
-                  Text(
-                    '6.28\n\n\n',
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(15),
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Container(
-                    height: ScreenUtil().setHeight(100),
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      width: ScreenUtil().setWidth(5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Center(
-                    child: Container(
-                      width: ScreenUtil().setWidth(260),
-                      height: ScreenUtil().setHeight(80),
-                      child: SlideButton(
-                        backgroundChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            fixedSize: Size(ScreenUtil().setWidth(260),
-                                ScreenUtil().setHeight(80)),
-                            primary: Color(0xFF3297F7),
-                          ),
-                          onPressed: () {},
-                          child: Text(''),
-                        ),
-                        backgroundColor: Colors.transparent,
-                        slidingChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            primary: Color(0xFFFF766D),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRouteWithoutAnimation(
-                                builder: (context) => AccountListPage(),
+                  // color: Colors.white,
+                  width: ScreenUtil().setWidth(300),
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: 3,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          Theme(
+                            data: theme,
+                            child: ExpansionTile(
+                              title: Container(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: ScreenUtil().setHeight(25),
+                                      width: ScreenUtil().setHeight(25),
+                                      child: Image.asset(
+                                        'assets/wooribank_account_logo.png',
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: ScreenUtil().setWidth(10),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '김도둑',
+                                          style: TextStyle(
+                                            color: Color(0xFFA7A7A7),
+                                            fontSize: ScreenUtil().setSp(12),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: ScreenUtil().setHeight(5),
+                                        ),
+                                        Text(
+                                          '1002-123-45678',
+                                          style: TextStyle(
+                                            color: Color(0xFF3A3A3A),
+                                            fontSize: ScreenUtil().setSp(15),
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            );
-                          },
-                          child: Text(
-                            textEditingControllers[1].text,
-                            overflow: TextOverflow.ellipsis,
+                              children: [
+                                Container(
+                                  height: ScreenUtil().setHeight(50),
+                                  color: Color(0xFFDEECFF),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: ScreenUtil().setWidth(20),
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '2021. 06. 28 월요일',
+                                            style: TextStyle(
+                                              color: Color(0xFFA7A7A7),
+                                              fontSize: ScreenUtil().setSp(12),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: ScreenUtil().setHeight(5),
+                                          ),
+                                          Text(
+                                            '10,000원',
+                                            style: TextStyle(
+                                              color: Color(0xFF3A3A3A),
+                                              fontSize: ScreenUtil().setSp(15),
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: ScreenUtil().setHeight(28),
+                                            width: ScreenUtil().setWidth(28),
+                                            child: ElevatedButton(
+                                              onPressed: null,
+                                              child: Image.asset(
+                                                  'assets/icons/report_red.png'),
+                                              style: ElevatedButton.styleFrom(
+                                                padding: EdgeInsets.all(0),
+                                                onSurface: Color(0xFFDEECFF),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            '신고하기',
+                                            style: TextStyle(
+                                              fontSize: ScreenUtil().setSp(8),
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width: ScreenUtil().setWidth(10),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        onButtonOpened: () {
-                          setState(() {
-                            textEditingControllers[1].text = "신고하기";
-                          });
-                        },
-                        onButtonClosed: () {
-                          WidgetsBinding.instance!
-                              .addPostFrameCallback((_) => setState(() {
-                            textEditingControllers[1].text = " ";
-                          }));
-                        },
-                        slideDirection: SlideDirection.LEFT,
-                        initialSliderPercentage: 0.14,
-                        confirmPercentage: 0.5,
-                      ),
-                    ),
+                          Divider(
+                            height: 2,
+                            indent: ScreenUtil().setWidth(10),
+                            endIndent: ScreenUtil().setWidth(10),
+                          ),
+                        ],
+                      );
+                    },
                   ),
-                ],
+                ),
               ),
             ),
-            IntrinsicHeight(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: ScreenUtil().setWidth(20),
-                  ),
-                  Text(
-                    '6.28\n\n\n',
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(15),
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Container(
-                    height: ScreenUtil().setHeight(100),
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      width: ScreenUtil().setWidth(5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Center(
-                    child: Container(
-                      width: ScreenUtil().setWidth(260),
-                      height: ScreenUtil().setHeight(80),
-                      child: SlideButton(
-                        backgroundChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            fixedSize: Size(ScreenUtil().setWidth(260),
-                                ScreenUtil().setHeight(80)),
-                            primary: Color(0xFF3297F7),
-                          ),
-                          onPressed: () {},
-                          child: Text(''),
-                        ),
-                        backgroundColor: Colors.transparent,
-                        slidingChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            primary: Color(0xFFFF766D),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRouteWithoutAnimation(
-                                builder: (context) => AccountListPage(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            textEditingControllers[1].text,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        onButtonOpened: () {
-                          setState(() {
-                            textEditingControllers[1].text = "신고하기";
-                          });
-                        },
-                        onButtonClosed: () {
-                          WidgetsBinding.instance!
-                              .addPostFrameCallback((_) => setState(() {
-                            textEditingControllers[1].text = " ";
-                          }));
-                        },
-                        slideDirection: SlideDirection.LEFT,
-                        initialSliderPercentage: 0.14,
-                        confirmPercentage: 0.5,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            IntrinsicHeight(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: ScreenUtil().setWidth(20),
-                  ),
-                  Text(
-                    '6.28\n\n\n',
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(15),
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Container(
-                    height: ScreenUtil().setHeight(100),
-                    child: VerticalDivider(
-                      color: Colors.grey,
-                      width: ScreenUtil().setWidth(5),
-                    ),
-                  ),
-                  SizedBox(
-                    width: ScreenUtil().setWidth(10),
-                  ),
-                  Center(
-                    child: Container(
-                      width: ScreenUtil().setWidth(260),
-                      height: ScreenUtil().setHeight(80),
-                      child: SlideButton(
-                        backgroundChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            fixedSize: Size(ScreenUtil().setWidth(260),
-                                ScreenUtil().setHeight(80)),
-                            primary: Color(0xFF3297F7),
-                          ),
-                          onPressed: () {},
-                          child: Text(''),
-                        ),
-                        backgroundColor: Colors.transparent,
-                        slidingChild: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            primary: Color(0xFFFF766D),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRouteWithoutAnimation(
-                                builder: (context) => AccountListPage(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            textEditingControllers[1].text,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        onButtonOpened: () {
-                          setState(() {
-                            textEditingControllers[1].text = "신고하기";
-                          });
-                        },
-                        onButtonClosed: () {
-                          WidgetsBinding.instance!
-                              .addPostFrameCallback((_) => setState(() {
-                            textEditingControllers[1].text = " ";
-                          }));
-                        },
-                        slideDirection: SlideDirection.LEFT,
-                        initialSliderPercentage: 0.14,
-                        confirmPercentage: 0.5,
-                      ),
-                    ),
-                  ),
-                ],
+            Center(
+              child: SizedBox(
+                height: ScreenUtil().setHeight(20),
               ),
             ),
           ],

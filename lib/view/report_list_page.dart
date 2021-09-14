@@ -47,7 +47,63 @@ class _ReportListState extends State<ReportListPage> {
           elevation: 0.0,
         ),
         body: Column(
-          children: <Widget>[],
+          children: <Widget>[
+            Container(
+              child: Expanded(
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Row(
+                      children: [
+                        SizedBox(
+                          width: ScreenUtil().setWidth(20),
+                        ),
+                        Text(
+                          '6.28\n\n\n',
+                          style: TextStyle(
+                              fontSize: ScreenUtil().setSp(15),
+                              fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(
+                          width: ScreenUtil().setWidth(10),
+                        ),
+                        Container(
+                          height: ScreenUtil().setHeight(100),
+                          child: VerticalDivider(
+                            color: Colors.grey,
+                            width: ScreenUtil().setWidth(5),
+                          ),
+                        ),
+                        SizedBox(
+                          width: ScreenUtil().setWidth(10),
+                        ),
+                        Center(
+                          child: Container(
+                            width: ScreenUtil().setWidth(260),
+                            height: ScreenUtil().setHeight(80),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                fixedSize: Size(ScreenUtil().setWidth(260),
+                                    ScreenUtil().setHeight(80)),
+                                primary: Color(0xFFFF766D),
+                              ),
+                              onPressed: () {},
+                              child: Text(''),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       onWillPop: () async {

@@ -90,6 +90,8 @@ class _LoginState extends State<LoginPage> {
             },
             icon: Image.asset('assets/button_accept.png'),
             iconSize: 80,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
           ),
         ],
       ),

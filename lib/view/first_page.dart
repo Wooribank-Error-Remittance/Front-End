@@ -44,6 +44,8 @@ class FirstPage extends StatelessWidget {
                   );
                 },
                 style: OutlinedButton.styleFrom(
+                    splashFactory: NoSplash.splashFactory,
+                    shadowColor: Colors.transparent,
                     primary: Colors.black87,
                     alignment: Alignment.centerLeft,
                     side: BorderSide(color: Colors.black26)),
@@ -77,6 +79,8 @@ class FirstPage extends StatelessWidget {
                   );
                 },
                 style: OutlinedButton.styleFrom(
+                    splashFactory: NoSplash.splashFactory,
+                    shadowColor: Colors.transparent,
                     primary: Colors.black87,
                     alignment: Alignment.centerLeft,
                     side: BorderSide(color: Colors.black26)),

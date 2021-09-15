@@ -207,10 +207,12 @@ class _CertifyAccountState extends State<CertifyAccountPage> {
                         ),
                   style: !isSMSRequested
                       ? ElevatedButton.styleFrom(
+                          splashFactory: NoSplash.splashFactory,
                           primary: Colors.white38,
                           // side: BorderSide(width: 0, color: Colors.white38),
                         )
                       : ElevatedButton.styleFrom(
+                          splashFactory: NoSplash.splashFactory,
                           primary: Colors.white38,
                           // side: BorderSide(width: 0, color: Colors.white38),
                         ),
@@ -268,6 +270,8 @@ class _CertifyAccountState extends State<CertifyAccountPage> {
             },
             icon: Image.asset('assets/button_accept.png'),
             iconSize: 80,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
           ),
         ],
       ),

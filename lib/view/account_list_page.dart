@@ -186,7 +186,7 @@ class _AccountListState extends State<AccountListPage> {
                   child: Text(
                     'WON 통장',
                     style: TextStyle(
-                        fontSize: ScreenUtil().setSp(16),
+                        fontSize: ScreenUtil().setSp(15),
                         fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -207,9 +207,10 @@ class _AccountListState extends State<AccountListPage> {
                 Container(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    '잔액',
+                    '100,000원',
                     style: TextStyle(
-                      fontSize: ScreenUtil().setSp(25),
+                      fontSize: ScreenUtil().setSp(20),
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ),

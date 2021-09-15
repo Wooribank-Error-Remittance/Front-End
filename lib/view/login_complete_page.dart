@@ -52,6 +52,8 @@ class LoginCompletePage extends StatelessWidget {
               },
               icon: Image.asset('assets/button_accept.png'),
               iconSize: 80,
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
             ),
           ),
         ],

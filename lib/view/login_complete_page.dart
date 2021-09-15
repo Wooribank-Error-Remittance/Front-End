@@ -6,8 +6,10 @@ import 'package:wooribank_error_remittance/view/sign_up_page.dart';
 class LoginCompletePage extends StatelessWidget {
   final String userId;
   final String password;
+  final String name;
 
-  LoginCompletePage({required this.userId, required this.password});
+  LoginCompletePage(
+      {required this.userId, required this.password, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,11 @@ class LoginCompletePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRouteWithoutAnimation(
-                    builder: (context) => AccountListPage(),
+                    builder: (context) => AccountListPage(
+                      userId: userId,
+                      password: password,
+                      name: name,
+                    ),
                   ),
                 );
               },

@@ -4,6 +4,7 @@ import 'dart:core';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wooribank_error_remittance/dto/login_dto.dart';
 import 'package:wooribank_error_remittance/view/login_complete_page.dart';
 import 'package:http/http.dart' as http;
 
@@ -97,14 +98,15 @@ class _LoginState extends State<LoginPage> {
     try {
       http.Response response = await http.post(
         Uri.parse(
-            "http://localhost:8080/v1/sign/login"),
+            "http://192.168.0.4:8080/v1/sign/login"),
         headers: {
           "content-type": "application/json",
         },
         body: json.encode(
             {"password": passwordController.text, "userId": idController.text}),
       );
-      print(response.statusCode);
+
+      LoginDto loginDto = LoginDto.fromJson(json.decode(utf8.decode(response.bodyBytes)));
 
       if (response.statusCode == 200) {
         Navigator.push(
@@ -112,7 +114,7 @@ class _LoginState extends State<LoginPage> {
           MaterialPageRouteWithoutAnimation(
             builder: (context) =>
                 LoginCompletePage(
-                    userId: idController.text, password: passwordController.text),
+                    userId: idController.text, password: passwordController.text,name: loginDto.name),
           ),
         );
       }

@@ -7,6 +7,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'account_list_page.dart';
 
 class AccountStatementPage extends StatefulWidget {
+  final String userId;
+  final String password;
+  final String name;
+
+  AccountStatementPage({required this.userId, required this.password, required this.name});
+
   @override
   _AccountStatementState createState() => _AccountStatementState();
 }
@@ -31,7 +37,11 @@ class _AccountStatementState extends State<AccountStatementPage> {
               Navigator.push(
                 context,
                 MaterialPageRouteWithoutAnimation(
-                  builder: (context) => AccountListPage(),
+                  builder: (context) => AccountListPage(
+                    userId: widget.userId,
+                    password: widget.password,
+                    name: widget.name,
+                  ),
                 ),
               );
             },
@@ -378,7 +388,11 @@ class _AccountStatementState extends State<AccountStatementPage> {
         Navigator.push(
           context,
           MaterialPageRouteWithoutAnimation(
-            builder: (context) => AccountListPage(),
+            builder: (context) => AccountListPage(
+              userId: widget.userId,
+              password: widget.password,
+              name: widget.name,
+            ),
           ),
         );
         return true;

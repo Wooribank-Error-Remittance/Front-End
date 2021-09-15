@@ -7,6 +7,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'account_list_page.dart';
 
 class SentReturnRequestListPage extends StatefulWidget {
+
+  final String userId;
+  final String password;
+  final String name;
+
+  SentReturnRequestListPage(
+      {required this.userId, required this.password, required this.name});
+
   @override
   _SentReturnRequestListState createState() => _SentReturnRequestListState();
 }
@@ -38,7 +46,9 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
               Navigator.push(
                 context,
                 MaterialPageRouteWithoutAnimation(
-                  builder: (context) => AccountListPage(),
+                  builder: (context) => AccountListPage(userId: widget.userId,
+                    password: widget.password,
+                    name: widget.name,),
                 ),
               );
             },
@@ -222,7 +232,9 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
         Navigator.push(
           context,
           MaterialPageRouteWithoutAnimation(
-            builder: (context) => AccountListPage(),
+            builder: (context) => AccountListPage(userId: widget.userId,
+              password: widget.password,
+              name: widget.name,),
           ),
         );
         return true;

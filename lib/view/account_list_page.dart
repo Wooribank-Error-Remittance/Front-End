@@ -11,13 +11,18 @@ import 'package:wooribank_error_remittance/view/sent_return_request_list_page.da
 import 'account_statement_page.dart';
 
 class AccountListPage extends StatefulWidget {
+  final String userId;
+  final String password;
+  final String name;
+
+  AccountListPage(
+      {required this.userId, required this.password, required this.name});
+
   @override
   _AccountListState createState() => _AccountListState();
 }
 
 class _AccountListState extends State<AccountListPage> {
-  final String name = "김우리";
-
   GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
@@ -81,7 +86,11 @@ class _AccountListState extends State<AccountListPage> {
                         Navigator.push(
                           context,
                           MaterialPageRouteWithoutAnimation(
-                            builder: (context) => SentReturnRequestListPage(),
+                            builder: (context) => SentReturnRequestListPage(
+                              userId: widget.userId,
+                              password: widget.password,
+                              name: widget.name,
+                            ),
                           ),
                         );
                       },
@@ -101,8 +110,11 @@ class _AccountListState extends State<AccountListPage> {
                         Navigator.push(
                           context,
                           MaterialPageRouteWithoutAnimation(
-                            builder: (context) =>
-                                ReceivedReturnRequestListPage(),
+                            builder: (context) => ReceivedReturnRequestListPage(
+                              userId: widget.userId,
+                              password: widget.password,
+                              name: widget.name,
+                            ),
                           ),
                         );
                       },
@@ -132,7 +144,11 @@ class _AccountListState extends State<AccountListPage> {
                     Navigator.push(
                       context,
                       MaterialPageRouteWithoutAnimation(
-                        builder: (context) => ReportListPage(),
+                        builder: (context) => ReportListPage(
+                          userId: widget.userId,
+                          password: widget.password,
+                          name: widget.name,
+                        ),
                       ),
                     );
                   },
@@ -151,7 +167,7 @@ class _AccountListState extends State<AccountListPage> {
                 width: ScreenUtil().setWidth(290),
                 height: ScreenUtil().setHeight(35),
                 child: Text(
-                  name + '님',
+                  '${widget.name}님',
                   style: TextStyle(
                       fontSize: ScreenUtil().setSp(20),
                       fontWeight: FontWeight.w500),
@@ -175,7 +191,11 @@ class _AccountListState extends State<AccountListPage> {
                 Navigator.push(
                   context,
                   MaterialPageRouteWithoutAnimation(
-                    builder: (context) => AccountStatementPage(),
+                    builder: (context) => AccountStatementPage(
+                      userId: widget.userId,
+                      password: widget.password,
+                      name: widget.name,
+                    ),
                   ),
                 );
               },
@@ -259,8 +279,11 @@ class _AccountListState extends State<AccountListPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRouteWithoutAnimation(
-                                    builder: (context) =>
-                                        AccountStatementPage(),
+                                    builder: (context) => AccountStatementPage(
+                                      userId: widget.userId,
+                                      password: widget.password,
+                                      name: widget.name,
+                                    ),
                                   ),
                                 );
                               },
@@ -414,118 +437,106 @@ class _AccountListState extends State<AccountListPage> {
       ),
       onWillPop: () async {
         showDialog(
-          context: context,
-          builder: (context) => Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius:
-              BorderRadius.all(Radius.circular(25.0)),
-            ),
-            child: Container(
-              height: ScreenUtil().setHeight(200),
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: Color(0xFF3297F7), width: 2),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(25.0),
-                ),
-              ),
-              child: Column(
-                children: [
-                  Container(
-                    height: ScreenUtil().setHeight(40),
-                    child: Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '알림',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xFF3297F7),
-                            fontWeight: FontWeight.w600,
-                            fontSize:
-                            ScreenUtil().setSp(17),
-                          ),
-                        ),
-                      ],
-                    ),
+            context: context,
+            builder: (context) => Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
                   ),
-                  Container(
-                    color: Color(0xFF3297F7),
-                    width: double.infinity,
-                    height: ScreenUtil().setHeight(100),
+                  child: Container(
+                    height: ScreenUtil().setHeight(200),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xFF3297F7), width: 2),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25.0),
+                      ),
+                    ),
                     child: Column(
-                      mainAxisAlignment:
-                      MainAxisAlignment.center,
                       children: [
-                        Text(
-                          '로그아웃 하시겠습니까?',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize:
-                            ScreenUtil().setSp(16),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: ScreenUtil().setHeight(50),
-                    child: Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height:
-                          ScreenUtil().setHeight(50),
-                          width: ScreenUtil().setWidth(120),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRouteWithoutAnimation(
-                                  builder: (context) => FirstPage(),
+                        Container(
+                          height: ScreenUtil().setHeight(40),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '알림',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF3297F7),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: ScreenUtil().setSp(17),
                                 ),
-                              );
-                            },
-                            child: Image.asset(
-                                'assets/button_accept.png'),
-                            style: ElevatedButton.styleFrom(
-                              shadowColor:
-                              Colors.transparent,
-                              primary: Colors.white,
-                              onSurface: Colors.white,
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          height:
-                          ScreenUtil().setHeight(50),
-                          width: ScreenUtil().setWidth(120),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Image.asset(
-                                'assets/button_decline.png'),
-                            style: ElevatedButton.styleFrom(
-                              shadowColor:
-                              Colors.transparent,
-                              primary: Colors.white,
-                              onSurface: Colors.white,
-                            ),
+                        Container(
+                          color: Color(0xFF3297F7),
+                          width: double.infinity,
+                          height: ScreenUtil().setHeight(100),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '로그아웃 하시겠습니까?',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: ScreenUtil().setSp(16),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          height: ScreenUtil().setHeight(50),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: ScreenUtil().setHeight(50),
+                                width: ScreenUtil().setWidth(120),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRouteWithoutAnimation(
+                                        builder: (context) => FirstPage(),
+                                      ),
+                                    );
+                                  },
+                                  child:
+                                      Image.asset('assets/button_accept.png'),
+                                  style: ElevatedButton.styleFrom(
+                                    shadowColor: Colors.transparent,
+                                    primary: Colors.white,
+                                    onSurface: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: ScreenUtil().setHeight(50),
+                                width: ScreenUtil().setWidth(120),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child:
+                                      Image.asset('assets/button_decline.png'),
+                                  style: ElevatedButton.styleFrom(
+                                    shadowColor: Colors.transparent,
+                                    primary: Colors.white,
+                                    onSurface: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          )
-        );
+                ));
         return true;
       },
     );

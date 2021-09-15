@@ -3,11 +3,17 @@ import 'dart:core';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:slide_button/slide_button.dart';
 
 import 'account_list_page.dart';
 
 class ReceivedReturnRequestListPage extends StatefulWidget {
+  final String userId;
+  final String password;
+  final String name;
+
+  ReceivedReturnRequestListPage(
+      {required this.userId, required this.password, required this.name});
+
   @override
   _ReceivedReturnRequestListState createState() => _ReceivedReturnRequestListState();
 }
@@ -39,7 +45,11 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
               Navigator.push(
                 context,
                 MaterialPageRouteWithoutAnimation(
-                  builder: (context) => AccountListPage(),
+                  builder: (context) => AccountListPage(
+                    userId: widget.userId,
+                    password: widget.password,
+                    name: widget.name,
+                  ),
                 ),
               );
             },
@@ -223,7 +233,11 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
         Navigator.push(
           context,
           MaterialPageRouteWithoutAnimation(
-            builder: (context) => AccountListPage(),
+            builder: (context) => AccountListPage(
+              userId: widget.userId,
+              password: widget.password,
+              name: widget.name,
+            ),
           ),
         );
         return true;

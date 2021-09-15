@@ -8,6 +8,14 @@ import 'package:wooribank_error_remittance/view/first_page.dart';
 import 'account_list_page.dart';
 
 class ReportListPage extends StatefulWidget {
+
+  final String userId;
+  final String password;
+  final String name;
+
+  ReportListPage(
+      {required this.userId, required this.password, required this.name});
+
   @override
   _ReportListState createState() => _ReportListState();
 }
@@ -25,7 +33,9 @@ class _ReportListState extends State<ReportListPage> {
               Navigator.push(
                 context,
                 MaterialPageRouteWithoutAnimation(
-                  builder: (context) => AccountListPage(),
+                  builder: (context) => AccountListPage(userId: widget.userId,
+                    password: widget.password,
+                    name: widget.name,),
                 ),
               );
             },
@@ -110,7 +120,9 @@ class _ReportListState extends State<ReportListPage> {
         Navigator.push(
           context,
           MaterialPageRouteWithoutAnimation(
-            builder: (context) => AccountListPage(),
+            builder: (context) => AccountListPage(userId: widget.userId,
+              password: widget.password,
+              name: widget.name,),
           ),
         );
         return true;

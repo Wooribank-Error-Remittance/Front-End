@@ -4,11 +4,8 @@ import 'dart:core';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wooribank_error_remittance/view/sign_up_complete_page.dart';
 import 'package:http/http.dart' as http;
-
-import 'certify_account_complete_page.dart';
 
 class SignUpPage extends StatefulWidget {
   final String name;

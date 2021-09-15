@@ -1,17 +1,17 @@
-class LoginDto {
+class WooriUser {
   final String name;
   final String phoneNumber;
   final String userId;
   final int wooriUserId;
 
-  LoginDto(
+  WooriUser(
       {required this.name,
       required this.phoneNumber,
       required this.userId,
       required this.wooriUserId});
 
-  factory LoginDto.fromJson(Map<String, dynamic> json) {
-    return LoginDto(
+  factory WooriUser.fromJson(Map<String, dynamic> json) {
+    return WooriUser(
       name: json['data']['name'] as String,
       phoneNumber: json['data']['phoneNumber'] as String,
       userId: json['data']['userId'] as String,

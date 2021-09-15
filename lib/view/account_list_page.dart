@@ -1,16 +1,22 @@
+import 'dart:convert';
 import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wooribank_error_remittance/model/account.dart';
+import 'package:wooribank_error_remittance/model/account_list.dart';
 import 'package:wooribank_error_remittance/view/first_page.dart';
 import 'package:wooribank_error_remittance/view/received_return_request_list_page.dart';
 import 'package:wooribank_error_remittance/view/report_list_page.dart';
 import 'package:wooribank_error_remittance/view/sent_return_request_list_page.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 import 'account_statement_page.dart';
 
 class AccountListPage extends StatefulWidget {
+  AccountList? accounts;
   final String userId;
   final String password;
   final String name;
@@ -24,6 +30,11 @@ class AccountListPage extends StatefulWidget {
 
 class _AccountListState extends State<AccountListPage> {
   GlobalKey<ScaffoldState> _key = GlobalKey();
+
+  @override
+  void initState() {
+    _getAccounts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -199,49 +210,94 @@ class _AccountListState extends State<AccountListPage> {
                   ),
                 );
               },
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: ScreenUtil().setHeight(11),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'WON 통장',
-                      style: TextStyle(
-                          fontSize: ScreenUtil().setSp(15),
-                          fontWeight: FontWeight.w600),
+              child: widget.accounts == null
+                  ? Column(
+                      children: [
+                        SizedBox(
+                          height: ScreenUtil().setHeight(11),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '로딩중',
+                            // '${widget.accounts!.accounts.first.name}',
+                            style: TextStyle(
+                                fontSize: ScreenUtil().setSp(15),
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        SizedBox(
+                          height: ScreenUtil().setHeight(6),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '로딩중',
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(20),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            '로딩중',
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(20),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: ScreenUtil().setHeight(10),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        SizedBox(
+                          height: ScreenUtil().setHeight(11),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '${widget.accounts!.accounts.first.name}',
+                            style: TextStyle(
+                                fontSize: ScreenUtil().setSp(15),
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        SizedBox(
+                          height: ScreenUtil().setHeight(6),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '${widget.accounts!.accounts.first.number}',
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(20),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            '${NumberFormat('###,###,###,###').format(widget.accounts!.accounts.first.balance)}원',
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(20),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: ScreenUtil().setHeight(10),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    height: ScreenUtil().setHeight(6),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      '1002-123-456789',
-                      style: TextStyle(
-                        fontSize: ScreenUtil().setSp(20),
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      '100,000원',
-                      style: TextStyle(
-                        fontSize: ScreenUtil().setSp(20),
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: ScreenUtil().setHeight(10),
-                  ),
-                ],
-              ),
               style: ElevatedButton.styleFrom(
                 splashFactory: NoSplash.splashFactory,
                 animationDuration: Duration(days: 10000),
@@ -268,7 +324,7 @@ class _AccountListState extends State<AccountListPage> {
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: 3,
+                    itemCount: widget.accounts == null || widget.accounts!.accounts.length == 1 ? 0 : widget.accounts!.accounts.length-1,
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
@@ -307,7 +363,7 @@ class _AccountListState extends State<AccountListPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'WON 통장',
+                                        '${widget.accounts!.accounts[index+1].name}',
                                         style: TextStyle(
                                           color: Color(0xFFA7A7A7),
                                           fontSize: ScreenUtil().setSp(12),
@@ -315,7 +371,7 @@ class _AccountListState extends State<AccountListPage> {
                                         ),
                                       ),
                                       Text(
-                                        '300,000 원',
+                                        '${NumberFormat('###,###,###,###').format(widget.accounts!.accounts[index+1].balance)} 원',
                                         style: TextStyle(
                                           color: Color(0xFF3A3A3A),
                                           fontSize: ScreenUtil().setSp(15),
@@ -540,6 +596,60 @@ class _AccountListState extends State<AccountListPage> {
         return true;
       },
     );
+  }
+
+  Future<dynamic> _getAccounts() async {
+    try {
+      http.Response response = await http.get(
+        Uri.parse(
+            "http://192.168.0.4:8080/v1/accounts?userId=${widget.userId}&password=${widget.password}"),
+        headers: {
+          "content-type": "application/json",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          widget.accounts =
+              AccountList.fromJson(
+                  json.decode(utf8.decode(response.bodyBytes)));
+        });
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: new Text("\n계좌 정보를 가져올 수 없습니다."),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("확인"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } on Exception {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: new Text("\n서버와 연결할 수 없습니다."),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
 

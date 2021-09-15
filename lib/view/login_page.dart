@@ -1,13 +1,11 @@
+import 'dart:convert';
 import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wooribank_error_remittance/view/login_complete_page.dart';
-import 'package:wooribank_error_remittance/view/sign_up_complete_page.dart';
-
-import 'certify_account_complete_page.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -81,12 +79,9 @@ class _LoginState extends State<LoginPage> {
           Spacer(),
           IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRouteWithoutAnimation(
-                  builder: (context) => LoginCompletePage(),
-                ),
-              );
+              try {
+                _Login();
+              } finally {}
             },
             icon: Image.asset('assets/button_accept.png'),
             iconSize: 80,
@@ -96,6 +91,69 @@ class _LoginState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  Future<dynamic> _Login() async {
+    try {
+      http.Response response = await http.post(
+        Uri.parse(
+            "http://localhost:8080/v1/sign/login"),
+        headers: {
+          "content-type": "application/json",
+        },
+        body: json.encode(
+            {"password": passwordController.text, "userId": idController.text}),
+      );
+      print(response.statusCode);
+
+      if (response.statusCode == 200) {
+        Navigator.push(
+          context,
+          MaterialPageRouteWithoutAnimation(
+            builder: (context) =>
+                LoginCompletePage(
+                    userId: idController.text, password: passwordController.text),
+          ),
+        );
+      }
+      else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: new Text("\n입력하신 정보와 일치하는 계정이 존재하지 않습니다."),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("확인"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } on Exception{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: new Text("\n서버와 연결할 수 없습니다."),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+
   }
 }
 

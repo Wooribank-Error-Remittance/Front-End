@@ -199,62 +199,25 @@ class _AccountListState extends State<AccountListPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRouteWithoutAnimation(
-                    builder: (context) => AccountStatementPage(
-                      userId: widget.userId,
-                      password: widget.password,
-                      name: widget.name,
+                if (widget.accounts != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRouteWithoutAnimation(
+                      builder: (context) => AccountStatementPage(
+                        userId: widget.userId,
+                        password: widget.password,
+                        name: widget.name,
+                        accountName: widget.accounts!.accounts.first.name,
+                        accountNumber: widget.accounts!.accounts.first.number,
+                        accountBalance: widget.accounts!.accounts.first.balance,
+                        accountId: widget.accounts!.accounts.first.id,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
               },
               child: widget.accounts == null
-                  ? Column(
-                      children: [
-                        SizedBox(
-                          height: ScreenUtil().setHeight(11),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '로딩중',
-                            // '${widget.accounts!.accounts.first.name}',
-                            style: TextStyle(
-                                fontSize: ScreenUtil().setSp(15),
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        SizedBox(
-                          height: ScreenUtil().setHeight(6),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '로딩중',
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(20),
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Container(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            '로딩중',
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(20),
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: ScreenUtil().setHeight(10),
-                        ),
-                      ],
-                    )
+                  ? Column(children: [])
                   : Column(
                       children: [
                         SizedBox(
@@ -324,7 +287,10 @@ class _AccountListState extends State<AccountListPage> {
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: widget.accounts == null || widget.accounts!.accounts.length == 1 ? 0 : widget.accounts!.accounts.length-1,
+                    itemCount: widget.accounts == null ||
+                            widget.accounts!.accounts.length == 1
+                        ? 0
+                        : widget.accounts!.accounts.length - 1,
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
@@ -339,6 +305,14 @@ class _AccountListState extends State<AccountListPage> {
                                       userId: widget.userId,
                                       password: widget.password,
                                       name: widget.name,
+                                      accountName: widget
+                                          .accounts!.accounts[index + 1].name,
+                                      accountNumber: widget
+                                          .accounts!.accounts[index + 1].number,
+                                      accountBalance: widget.accounts!
+                                          .accounts[index + 1].balance,
+                                      accountId: widget
+                                          .accounts!.accounts[index + 1].id,
                                     ),
                                   ),
                                 );
@@ -363,7 +337,7 @@ class _AccountListState extends State<AccountListPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '${widget.accounts!.accounts[index+1].name}',
+                                        '${widget.accounts!.accounts[index + 1].name}',
                                         style: TextStyle(
                                           color: Color(0xFFA7A7A7),
                                           fontSize: ScreenUtil().setSp(12),
@@ -371,7 +345,7 @@ class _AccountListState extends State<AccountListPage> {
                                         ),
                                       ),
                                       Text(
-                                        '${NumberFormat('###,###,###,###').format(widget.accounts!.accounts[index+1].balance)} 원',
+                                        '${NumberFormat('###,###,###,###').format(widget.accounts!.accounts[index + 1].balance)} 원',
                                         style: TextStyle(
                                           color: Color(0xFF3A3A3A),
                                           fontSize: ScreenUtil().setSp(15),
@@ -602,7 +576,7 @@ class _AccountListState extends State<AccountListPage> {
     try {
       http.Response response = await http.get(
         Uri.parse(
-            "http://192.168.0.4:8080/v1/accounts?userId=${widget.userId}&password=${widget.password}"),
+            "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/accounts?userId=${widget.userId}&password=${widget.password}"),
         headers: {
           "content-type": "application/json",
         },
@@ -610,9 +584,8 @@ class _AccountListState extends State<AccountListPage> {
 
       if (response.statusCode == 200) {
         setState(() {
-          widget.accounts =
-              AccountList.fromJson(
-                  json.decode(utf8.decode(response.bodyBytes)));
+          widget.accounts = AccountList.fromJson(
+              json.decode(utf8.decode(response.bodyBytes)));
         });
       } else {
         showDialog(

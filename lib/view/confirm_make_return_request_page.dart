@@ -5,7 +5,7 @@ import 'package:wooribank_error_remittance/view/sent_return_request_list_page.da
 
 import 'account_list_page.dart';
 
-class ConfirmReturnRequestPage extends StatelessWidget {
+class ConfirmMakeReturnRequestPage extends StatelessWidget {
   final String userId;
   final String userPassword;
   final String userName;
@@ -14,7 +14,7 @@ class ConfirmReturnRequestPage extends StatelessWidget {
   final String transactionTime;
   final String returnRequestMessage;
 
-  ConfirmReturnRequestPage(
+  ConfirmMakeReturnRequestPage(
       {required this.userId,
       required this.userPassword,
       required this.userName,

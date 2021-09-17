@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wooribank_error_remittance/model/return_request_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:wooribank_error_remittance/view/show_return_request_info_page.dart';
 
 import 'account_list_page.dart';
 
@@ -213,7 +214,36 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
                                             height: ScreenUtil().setHeight(33),
                                             width: ScreenUtil().setWidth(33),
                                             child: ElevatedButton(
-                                              onPressed: null,
+                                              onPressed: () {
+                                                // Navigator.push(
+                                                //   context,
+                                                //   MaterialPageRouteWithoutAnimation(
+                                                //     builder: (context) =>
+                                                //         ShowReturnRequestInfoPage(
+                                                //           userId: widget.userId,
+                                                //           userPassword:
+                                                //           widget.password,
+                                                //           userName: widget.name,
+                                                //           returnRequestId: widget
+                                                //               .returnRequests!
+                                                //               .returnRequests[index]
+                                                //               .id,
+                                                //           transactionAmount: widget
+                                                //               .returnRequests!
+                                                //               .returnRequests[index]
+                                                //               .amount,
+                                                //           sentUserName: widget
+                                                //               .returnRequests!
+                                                //               .returnRequests[index]
+                                                //               .sentUserName,
+                                                //           sentMessage: widget
+                                                //               .returnRequests!
+                                                //               .returnRequests[index]
+                                                //               .message,
+                                                //         ),
+                                                //   ),
+                                                // );
+                                              },
                                               child: widget
                                                       .returnRequests!
                                                       .returnRequests[index]
@@ -223,8 +253,11 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
                                                   : Image.asset(
                                                       'assets/icons/report_red.png'),
                                               style: ElevatedButton.styleFrom(
+                                                onPrimary: Colors.transparent,
+                                                primary: Colors.transparent,
+                                                shadowColor: Colors.transparent,
                                                 padding: EdgeInsets.all(0),
-                                                onSurface: Color(0xFFDEECFF),
+                                                onSurface: Colors.transparent,
                                               ),
                                             ),
                                           ),
@@ -284,11 +317,19 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
           "content-type": "application/json",
         },
       );
-
+      print('hiiiiii');
       if (response.statusCode == 200) {
         setState(() {
           widget.returnRequests = ReturnRequestList.fromJson(
               json.decode(utf8.decode(response.bodyBytes)));
+
+          for (int i = widget.returnRequests!.returnRequests.length - 1;
+              i >= 0;
+              i--) {
+            if (widget.returnRequests!.returnRequests[i].concluded) {
+              widget.returnRequests!.returnRequests.removeAt(i);
+            }
+          }
         });
       } else {
         showDialog(

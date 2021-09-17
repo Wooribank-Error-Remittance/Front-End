@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:wooribank_error_remittance/view/confirm_return_request_page.dart';
+import 'package:wooribank_error_remittance/view/confirm_make_return_request_page.dart';
 import 'package:wooribank_error_remittance/view/sign_up_page.dart';
 
 import 'enter_return_request_info_page.dart';
 
-class AskReturnRequestPage extends StatelessWidget {
+class AskMakeReturnRequestPage extends StatelessWidget {
   final String userId;
   final String userPassword;
   final String userName;
@@ -16,7 +16,7 @@ class AskReturnRequestPage extends StatelessWidget {
   final double transactionAmount;
   final String transactionTime;
 
-  AskReturnRequestPage(
+  AskMakeReturnRequestPage(
       {required this.userId,
       required this.userPassword,
       required this.userName,

@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:wooribank_error_remittance/model/transaction_list.dart';
-import 'package:wooribank_error_remittance/view/ask_return_request_page.dart';
+import 'package:wooribank_error_remittance/view/ask_make_return_request_page.dart';
 
 import 'account_list_page.dart';
 
@@ -336,7 +336,7 @@ class _AccountStatementState extends State<AccountStatementPage> {
                                                       context,
                                                       MaterialPageRouteWithoutAnimation(
                                                         builder: (context) =>
-                                                            AskReturnRequestPage(
+                                                            AskMakeReturnRequestPage(
                                                               userId: widget.userId,
                                                               userPassword: widget.password,
                                                               userName: widget.name,

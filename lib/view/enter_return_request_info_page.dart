@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:wooribank_error_remittance/view/confirm_return_request_page.dart';
+import 'package:wooribank_error_remittance/view/confirm_make_return_request_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:wooribank_error_remittance/view/sent_return_request_list_page.dart';
 
@@ -236,6 +236,10 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                     if (isChecked) {
                       _makeReturnRequest();
                     } else {
+                      FocusScopeNode currentFocus = FocusScope.of(context);
+                      if (!currentFocus.hasPrimaryFocus) {
+                        currentFocus.unfocus();
+                      }
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -324,7 +328,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
       Navigator.push(
         context,
         MaterialPageRouteWithoutAnimation(
-          builder: (context) => ConfirmReturnRequestPage(
+          builder: (context) => ConfirmMakeReturnRequestPage(
               userId: widget.userId,
               userPassword: widget.userPassword,
               userName: widget.userName,

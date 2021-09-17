@@ -38,6 +38,7 @@ flutter:
     - assets/button_accept.png
     - assets/button_decline.png
     - assets/button_send.png
+    - assets/return_request_checkbox.png
 
 flutter_native_splash:
   image: assets/ic_launcher.png # size: 900x900

@@ -207,6 +207,7 @@ class _AccountListState extends State<AccountListPage> {
                         userId: widget.userId,
                         password: widget.password,
                         name: widget.name,
+                        accountBank: widget.accounts!.accounts.first.bank,
                         accountName: widget.accounts!.accounts.first.name,
                         accountNumber: widget.accounts!.accounts.first.number,
                         accountBalance: widget.accounts!.accounts.first.balance,
@@ -305,6 +306,8 @@ class _AccountListState extends State<AccountListPage> {
                                       userId: widget.userId,
                                       password: widget.password,
                                       name: widget.name,
+                                      accountBank: widget
+                                          .accounts!.accounts[index + 1].bank,
                                       accountName: widget
                                           .accounts!.accounts[index + 1].name,
                                       accountNumber: widget

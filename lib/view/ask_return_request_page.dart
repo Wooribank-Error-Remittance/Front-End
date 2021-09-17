@@ -7,15 +7,20 @@ import 'package:wooribank_error_remittance/view/sign_up_page.dart';
 import 'enter_return_request_info_page.dart';
 
 class AskReturnRequestPage extends StatelessWidget {
+  final String userId;
+  final String userPassword;
+  final String userName;
   final String bankName;
   final String accountNumber;
   final int transactionId;
   final double transactionAmount;
   final String transactionTime;
 
-
   AskReturnRequestPage(
-      {required this.bankName,
+      {required this.userId,
+      required this.userPassword,
+      required this.userName,
+      required this.bankName,
       required this.accountNumber,
       required this.transactionId,
       required this.transactionAmount,
@@ -119,10 +124,12 @@ class AskReturnRequestPage extends StatelessWidget {
                       context,
                       MaterialPageRouteWithoutAnimation(
                         builder: (context) => EnterReturnRequestInfoPage(
-                          transactionId: transactionId,
-                          transactionAmount: transactionAmount,
-                          transactionTime: transactionTime
-                        ),
+                            userId: userId,
+                            userPassword: userPassword,
+                            userName: userName,
+                            transactionId: transactionId,
+                            transactionAmount: transactionAmount,
+                            transactionTime: transactionTime),
                       ),
                     );
                   },

@@ -1,12 +1,17 @@
 import 'dart:core';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wooribank_error_remittance/model/return_request_list.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 import 'account_list_page.dart';
 
 class ReceivedReturnRequestListPage extends StatefulWidget {
+  ReturnRequestList? returnRequests;
   final String userId;
   final String password;
   final String name;
@@ -15,27 +20,22 @@ class ReceivedReturnRequestListPage extends StatefulWidget {
       {required this.userId, required this.password, required this.name});
 
   @override
-  _ReceivedReturnRequestListState createState() => _ReceivedReturnRequestListState();
+  _ReceivedReturnRequestListState createState() =>
+      _ReceivedReturnRequestListState();
 }
 
-class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPage> {
-
-  List<String> tempList = ['1', '2,' '3'];
-  var textEditingControllers = <TextEditingController>[];
-
+class _ReceivedReturnRequestListState
+    extends State<ReceivedReturnRequestListPage> {
   @override
   void initState() {
-    tempList.forEach((String str) {
-      var textEditingController = new TextEditingController();
-      textEditingControllers.add(textEditingController);
-    });
+    _returnRequests();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
-    return  WillPopScope(
+    return WillPopScope(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -90,7 +90,9 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: 3,
+                    itemCount: widget.returnRequests == null
+                        ? 0
+                        : widget.returnRequests!.returnRequests.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
@@ -113,12 +115,12 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
                                     ),
                                     Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '김도둑',
+                                          '${widget.returnRequests!.returnRequests[index].sentUserName}',
                                           style: TextStyle(
                                             color: Color(0xFFA7A7A7),
                                             fontSize: ScreenUtil().setSp(12),
@@ -129,7 +131,7 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
                                           height: ScreenUtil().setHeight(5),
                                         ),
                                         Text(
-                                          '1002-123-45678',
+                                          '${widget.returnRequests!.returnRequests[index].sentAccountNumber}',
                                           style: TextStyle(
                                             color: Color(0xFF3A3A3A),
                                             fontSize: ScreenUtil().setSp(15),
@@ -153,12 +155,35 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
                                       ),
                                       Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            '2021. 06. 28 월요일',
+                                            DateTime.parse(widget
+                                                            .returnRequests!
+                                                            .returnRequests[index]
+                                                            .transactionTime)
+                                                        .month <
+                                                    10
+                                                ? DateTime.parse(widget
+                                                                .returnRequests!
+                                                                .returnRequests[
+                                                                    index]
+                                                                .transactionTime)
+                                                            .day <
+                                                        10
+                                                    ? '${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).year}. 0${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).month} .0${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).day}'
+                                                    : '${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).year}. 0${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).month} .${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).day}'
+                                                : DateTime.parse(widget
+                                                                .returnRequests!
+                                                                .returnRequests[
+                                                                    index]
+                                                                .transactionTime)
+                                                            .day <
+                                                        10
+                                                        ? '${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).year}. ${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).month} .0${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).day}'
+                          : '${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).year}. ${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).month} .${DateTime.parse(widget.returnRequests!.returnRequests[index].transactionTime).day}',
                                             style: TextStyle(
                                               color: Color(0xFFA7A7A7),
                                               fontSize: ScreenUtil().setSp(12),
@@ -169,7 +194,7 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
                                             height: ScreenUtil().setHeight(5),
                                           ),
                                           Text(
-                                            '10,000원',
+                                            '${NumberFormat('###,###,###,###').format(widget.returnRequests!.returnRequests[index].amount)} 원',
                                             style: TextStyle(
                                               color: Color(0xFF3A3A3A),
                                               fontSize: ScreenUtil().setSp(15),
@@ -181,9 +206,9 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
                                       Spacer(),
                                       Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Container(
                                             height: ScreenUtil().setHeight(33),
@@ -243,6 +268,59 @@ class _ReceivedReturnRequestListState extends State<ReceivedReturnRequestListPag
         return true;
       },
     );
+  }
+
+  Future<dynamic> _returnRequests() async {
+    try {
+      http.Response response = await http.get(
+        Uri.parse(
+            "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/return_requests/receiving?userId=${widget.userId}"),
+        headers: {
+          "content-type": "application/json",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          widget.returnRequests = ReturnRequestList.fromJson(
+              json.decode(utf8.decode(response.bodyBytes)));
+        });
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: new Text("\n반환 요청 정보를 가져올 수 없습니다."),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("확인"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } on Exception {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: new Text("\n서버와 연결할 수 없습니다."),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
 

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:wooribank_error_remittance/view/sent_return_request_list_page.dart';
 
 import 'account_list_page.dart';
 
-class ConfirmReturnRequestPage extends StatelessWidget {
+class ConfirmMakeReturnRequestPage extends StatelessWidget {
   final String userId;
   final String userPassword;
   final String userName;
@@ -13,7 +14,7 @@ class ConfirmReturnRequestPage extends StatelessWidget {
   final String transactionTime;
   final String returnRequestMessage;
 
-  ConfirmReturnRequestPage(
+  ConfirmMakeReturnRequestPage(
       {required this.userId,
       required this.userPassword,
       required this.userName,
@@ -69,7 +70,17 @@ class ConfirmReturnRequestPage extends StatelessWidget {
             Spacer(),
             Center(
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRouteWithoutAnimation(
+                      builder: (context) => SentReturnRequestListPage(
+                          userId: userId,
+                          password: userPassword,
+                          name: userName),
+                    ),
+                  );
+                },
                 icon: Image.asset('assets/button_accept.png'),
                 iconSize: 80,
                 splashColor: Colors.transparent,

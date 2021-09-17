@@ -1,8 +1,13 @@
+import 'dart:convert';
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:wooribank_error_remittance/view/confirm_return_request_page.dart';
+import 'package:wooribank_error_remittance/view/confirm_make_return_request_page.dart';
+import 'package:http/http.dart' as http;
+import 'package:wooribank_error_remittance/view/sent_return_request_list_page.dart';
 
 class EnterReturnRequestInfoPage extends StatefulWidget {
   final String userId;
@@ -228,25 +233,13 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
               Center(
                 child: IconButton(
                   onPressed: () {
-                    FocusScopeNode currentFocus = FocusScope.of(context);
-                    if (!currentFocus.hasPrimaryFocus) {
-                      currentFocus.unfocus();
-                    }
                     if (isChecked) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRouteWithoutAnimation(
-                          builder: (context) => ConfirmReturnRequestPage(
-                              userId: widget.userId,
-                              userPassword: widget.userPassword,
-                              userName: widget.userName,
-                              transactionId: widget.transactionId,
-                              transactionAmount: widget.transactionAmount,
-                              transactionTime: widget.transactionTime,
-                              returnRequestMessage: messageController.text),
-                        ),
-                      );
+                      _makeReturnRequest();
                     } else {
+                      FocusScopeNode currentFocus = FocusScope.of(context);
+                      if (!currentFocus.hasPrimaryFocus) {
+                        currentFocus.unfocus();
+                      }
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -314,6 +307,57 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> _makeReturnRequest() async {
+    http.Response response = await http.post(
+      Uri.parse(
+          "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/return_requests"),
+      headers: {
+        "content-type": "application/json",
+      },
+      body: json.encode({
+        "message": messageController.text,
+        "transactionId": widget.transactionId,
+      }),
+    );
+
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRouteWithoutAnimation(
+          builder: (context) => ConfirmMakeReturnRequestPage(
+              userId: widget.userId,
+              userPassword: widget.userPassword,
+              userName: widget.userName,
+              transactionId: widget.transactionId,
+              transactionAmount: widget.transactionAmount,
+              transactionTime: widget.transactionTime,
+              returnRequestMessage: messageController.text),
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: new Text("\n서버 오류가 발생했습니다.\n다시 시도해주세요."),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    return response;
   }
 }
 

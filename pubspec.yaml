@@ -38,6 +38,8 @@ flutter:
     - assets/button_accept.png
     - assets/button_decline.png
     - assets/button_send.png
+    - assets/button_next.png
+    - assets/request_accepted.png
     - assets/return_request_checkbox.png
     - assets/agreement_off.png
     - assets/agreement_on.png

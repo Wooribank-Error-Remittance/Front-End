@@ -337,6 +337,9 @@ class _AccountStatementState extends State<AccountStatementPage> {
                                                       MaterialPageRouteWithoutAnimation(
                                                         builder: (context) =>
                                                             AskReturnRequestPage(
+                                                              userId: widget.userId,
+                                                              userPassword: widget.password,
+                                                              userName: widget.name,
                                                               bankName: widget.accountBank,
                                                               accountNumber: widget.accountNumber,
                                                               transactionId: widget.transactions!.transactions[index].id,

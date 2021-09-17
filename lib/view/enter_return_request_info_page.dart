@@ -5,12 +5,18 @@ import 'package:intl/intl.dart';
 import 'package:wooribank_error_remittance/view/confirm_return_request_page.dart';
 
 class EnterReturnRequestInfoPage extends StatefulWidget {
+  final String userId;
+  final String userPassword;
+  final String userName;
   final int transactionId;
   final double transactionAmount;
   final String transactionTime;
 
   EnterReturnRequestInfoPage(
-      {required this.transactionId,
+      {required this.userId,
+      required this.userPassword,
+      required this.userName,
+      required this.transactionId,
       required this.transactionAmount,
       required this.transactionTime});
 
@@ -231,6 +237,9 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                         context,
                         MaterialPageRouteWithoutAnimation(
                           builder: (context) => ConfirmReturnRequestPage(
+                              userId: widget.userId,
+                              userPassword: widget.userPassword,
+                              userName: widget.userName,
                               transactionId: widget.transactionId,
                               transactionAmount: widget.transactionAmount,
                               transactionTime: widget.transactionTime,

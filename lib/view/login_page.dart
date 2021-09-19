@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wooribank_error_remittance/model/woori_user.dart';
 import 'package:wooribank_error_remittance/view/login_complete_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
@@ -16,6 +17,13 @@ class LoginPage extends StatefulWidget {
 class _LoginState extends State<LoginPage> {
   final idController = TextEditingController();
   final passwordController = TextEditingController();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  var FCMToken;
+
+  @override
+  void initState() {
+    _firebaseMessaging.getToken().then((value) => FCMToken=value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +103,7 @@ class _LoginState extends State<LoginPage> {
   }
 
   Future<dynamic> _Login() async {
+    print(FCMToken);
     try {
       http.Response response = await http.post(
         Uri.parse(
@@ -107,18 +116,20 @@ class _LoginState extends State<LoginPage> {
       );
 
       if (response.statusCode == 200) {
-        WooriUser loginDto = WooriUser.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+        WooriUser loginDto =
+        WooriUser.fromJson(json.decode(utf8.decode(response.bodyBytes)));
 
         Navigator.push(
           context,
           MaterialPageRouteWithoutAnimation(
             builder: (context) =>
                 LoginCompletePage(
-                    userId: idController.text, password: passwordController.text,name: loginDto.name),
+                    userId: idController.text,
+                    password: passwordController.text,
+                    name: loginDto.name),
           ),
         );
-      }
-      else {
+      } else {
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -155,8 +166,6 @@ class _LoginState extends State<LoginPage> {
         },
       );
     }
-
-
   }
 }
 

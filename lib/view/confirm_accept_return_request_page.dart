@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
-import 'package:wooribank_error_remittance/view/sent_return_request_list_page.dart';
 
 import 'account_list_page.dart';
 

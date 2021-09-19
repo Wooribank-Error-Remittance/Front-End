@@ -732,7 +732,16 @@ class _AccountListState extends State<AccountListPage> {
                             width: ScreenUtil().setWidth(120),
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRouteWithoutAnimation(
+                                    builder: (context) => AccountListPage(
+                                      userId: widget.userId,
+                                      password: widget.password,
+                                      name: widget.name,
+                                    ),
+                                  ),
+                                );
                               },
                               child: Image.asset('assets/button_decline.png'),
                               style: ElevatedButton.styleFrom(

@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wooribank_error_remittance/model/woori_user.dart';
 import 'package:wooribank_error_remittance/view/login_complete_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
@@ -17,12 +18,12 @@ class LoginPage extends StatefulWidget {
 class _LoginState extends State<LoginPage> {
   final idController = TextEditingController();
   final passwordController = TextEditingController();
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  var FCMToken;
+  String? FCMToken;
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   @override
   void initState() {
-    _firebaseMessaging.getToken().then((value) => FCMToken=value);
+    _firebaseMessaging.getToken().then((value) => FCMToken = value);
   }
 
   @override
@@ -103,30 +104,28 @@ class _LoginState extends State<LoginPage> {
   }
 
   Future<dynamic> _Login() async {
-    print(FCMToken);
     try {
       http.Response response = await http.post(
         Uri.parse(
-            "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/sign/login"),
+            "http://192.168.0.4:8080/v1/sign/login"),
         headers: {
           "content-type": "application/json",
         },
         body: json.encode(
-            {"password": passwordController.text, "userId": idController.text}),
+            {"password": passwordController.text, "userId": idController.text, "fcmToken" : FCMToken}),
       );
 
       if (response.statusCode == 200) {
         WooriUser loginDto =
-        WooriUser.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+            WooriUser.fromJson(json.decode(utf8.decode(response.bodyBytes)));
 
         Navigator.push(
           context,
           MaterialPageRouteWithoutAnimation(
-            builder: (context) =>
-                LoginCompletePage(
-                    userId: idController.text,
-                    password: passwordController.text,
-                    name: loginDto.name),
+            builder: (context) => LoginCompletePage(
+                userId: idController.text,
+                password: passwordController.text,
+                name: loginDto.name),
           ),
         );
       } else {

@@ -11,6 +11,7 @@ import 'package:wooribank_error_remittance/view/received_return_request_list_pag
 import 'package:wooribank_error_remittance/view/report_list_page.dart';
 import 'package:wooribank_error_remittance/view/sent_return_request_list_page.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -433,7 +434,11 @@ class _AccountListState extends State<AccountListPage> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await LaunchApp.openApp(
+                  androidPackageName: 'com.wooribank.smart.npib'
+                );
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

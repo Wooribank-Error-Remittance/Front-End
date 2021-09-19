@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wooribank_error_remittance/model/return_request_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:wooribank_error_remittance/view/show_return_request_info_page.dart';
+import 'package:wooribank_error_remittance/view/ask_report_return_request_page.dart';
 
 import 'account_list_page.dart';
 
@@ -215,34 +215,26 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
                                             width: ScreenUtil().setWidth(33),
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                // Navigator.push(
-                                                //   context,
-                                                //   MaterialPageRouteWithoutAnimation(
-                                                //     builder: (context) =>
-                                                //         ShowReturnRequestInfoPage(
-                                                //           userId: widget.userId,
-                                                //           userPassword:
-                                                //           widget.password,
-                                                //           userName: widget.name,
-                                                //           returnRequestId: widget
-                                                //               .returnRequests!
-                                                //               .returnRequests[index]
-                                                //               .id,
-                                                //           transactionAmount: widget
-                                                //               .returnRequests!
-                                                //               .returnRequests[index]
-                                                //               .amount,
-                                                //           sentUserName: widget
-                                                //               .returnRequests!
-                                                //               .returnRequests[index]
-                                                //               .sentUserName,
-                                                //           sentMessage: widget
-                                                //               .returnRequests!
-                                                //               .returnRequests[index]
-                                                //               .message,
-                                                //         ),
-                                                //   ),
-                                                // );
+                                                if (widget
+                                                    .returnRequests!
+                                                    .returnRequests[index]
+                                                    .reported==false) {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRouteWithoutAnimation(
+                                                      builder: (context) =>
+                                                          AskReportReturnRequestPage(
+                                                            userId: widget.userId,
+                                                            userPassword:
+                                                            widget.password,
+                                                            userName: widget.name,
+                                                            reportedUserName: widget.returnRequests!.returnRequests[index].receivedUserName,
+                                                            transactionTime: widget.returnRequests!.returnRequests[index].transactionTime,
+                                                            returnRequestId: widget.returnRequests!.returnRequests[index].id,
+                                                          ),
+                                                    ),
+                                                  );
+                                                }
                                               },
                                               child: widget
                                                       .returnRequests!
@@ -253,6 +245,7 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
                                                   : Image.asset(
                                                       'assets/icons/report_red.png'),
                                               style: ElevatedButton.styleFrom(
+                                                splashFactory: NoSplash.splashFactory,
                                                 onPrimary: Colors.transparent,
                                                 primary: Colors.transparent,
                                                 shadowColor: Colors.transparent,
@@ -317,7 +310,6 @@ class _SentReturnRequestListState extends State<SentReturnRequestListPage> {
           "content-type": "application/json",
         },
       );
-      print('hiiiiii');
       if (response.statusCode == 200) {
         setState(() {
           widget.returnRequests = ReturnRequestList.fromJson(

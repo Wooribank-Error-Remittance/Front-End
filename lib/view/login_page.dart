@@ -107,7 +107,7 @@ class _LoginState extends State<LoginPage> {
     try {
       http.Response response = await http.post(
         Uri.parse(
-            "http://192.168.0.4:8080/v1/sign/login"),
+            "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/sign/login"),
         headers: {
           "content-type": "application/json",
         },

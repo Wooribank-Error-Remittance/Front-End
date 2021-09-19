@@ -644,143 +644,113 @@ class _AccountListState extends State<AccountListPage> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
     FirebaseMessaging.onMessage.listen(
           (RemoteMessage message) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(25.0)),
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              ),
+              child: Container(
+                height: ScreenUtil().setHeight(200),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFF3297F7), width: 2),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(25.0),
                   ),
-                  child: Container(
-                    height: ScreenUtil().setHeight(200),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Color(0xFF3297F7),
-                          width: 2),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(25.0),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      height: ScreenUtil().setHeight(40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '착오송금액 반환요청 알림',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF3297F7),
+                              fontWeight: FontWeight.w600,
+                              fontSize: ScreenUtil().setSp(17),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    child: Column(
-                      children: [
-                        Container(
-                          height:
-                          ScreenUtil().setHeight(40),
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '착오송금액 반환 요청',
-                                textAlign:
-                                TextAlign.center,
-                                style: TextStyle(
-                                  color:
-                                  Color(0xFF3297F7),
-                                  fontWeight:
-                                  FontWeight.w600,
-                                  fontSize: ScreenUtil()
-                                      .setSp(17),
-                                ),
-                              ),
-                            ],
+                    Container(
+                      color: Color(0xFF3297F7),
+                      width: double.infinity,
+                      height: ScreenUtil().setHeight(100),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${message.notification!.body}\n확인하시겠습니까?',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: ScreenUtil().setSp(13),
+                            ),
                           ),
-                        ),
-                        Container(
-                          color: Color(0xFF3297F7),
-                          width: double.infinity,
-                          height:
-                          ScreenUtil().setHeight(100),
-                          child: Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '해당 거래내역에 대해\n반환을 요청하시겠습니까?',
-                                textAlign:
-                                TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight:
-                                  FontWeight.w600,
-                                  fontSize: ScreenUtil()
-                                      .setSp(16),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height:
-                          ScreenUtil().setHeight(50),
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: ScreenUtil()
-                                    .setHeight(50),
-                                width: ScreenUtil()
-                                    .setWidth(120),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(
-                                        context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRouteWithoutAnimation(
-                                        builder: (context) => ReceivedReturnRequestListPage(
-                                          userId: widget.userId,
-                                          password: widget.password,
-                                          name: widget.name,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: Image.asset(
-                                      'assets/button_accept.png'),
-                                  style: ElevatedButton
-                                      .styleFrom(
-                                    shadowColor: Colors
-                                        .transparent,
-                                    primary: Colors.white,
-                                    onSurface:
-                                    Colors.white,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: ScreenUtil()
-                                    .setHeight(50),
-                                width: ScreenUtil()
-                                    .setWidth(120),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(
-                                        context);
-                                  },
-                                  child: Image.asset(
-                                      'assets/button_decline.png'),
-                                  style: ElevatedButton
-                                      .styleFrom(
-                                    shadowColor: Colors
-                                        .transparent,
-                                    primary: Colors.white,
-                                    onSurface:
-                                    Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
+                    Container(
+                      height: ScreenUtil().setHeight(50),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: ScreenUtil().setHeight(50),
+                            width: ScreenUtil().setWidth(120),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRouteWithoutAnimation(
+                                    builder: (context) => ReceivedReturnRequestListPage(
+                                      userId: widget.userId,
+                                      password: widget.password,
+                                      name: widget.name,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Image.asset('assets/button_accept.png'),
+                              style: ElevatedButton.styleFrom(
+                                shadowColor: Colors.transparent,
+                                primary: Colors.white,
+                                onSurface: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(50),
+                            width: ScreenUtil().setWidth(120),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Image.asset('assets/button_decline.png'),
+                              style: ElevatedButton.styleFrom(
+                                shadowColor: Colors.transparent,
+                                primary: Colors.white,
+                                onSurface: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             );
+          },
+        );
       },
     );
   }

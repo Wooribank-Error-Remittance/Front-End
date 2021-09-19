@@ -150,6 +150,7 @@ class _AskAcceptReturnRequestListState
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
+                            backgroundColor: Colors.transparent,
                             contentPadding: EdgeInsets.all(0),
                             shape: RoundedRectangleBorder(
                                 borderRadius:

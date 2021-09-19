@@ -4,12 +4,14 @@ import 'dart:core';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:wooribank_error_remittance/model/account.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:wooribank_error_remittance/model/account_list.dart';
 import 'package:wooribank_error_remittance/view/first_page.dart';
 import 'package:wooribank_error_remittance/view/received_return_request_list_page.dart';
 import 'package:wooribank_error_remittance/view/report_list_page.dart';
 import 'package:wooribank_error_remittance/view/sent_return_request_list_page.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -29,11 +31,14 @@ class AccountListPage extends StatefulWidget {
 }
 
 class _AccountListState extends State<AccountListPage> {
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
   GlobalKey<ScaffoldState> _key = GlobalKey();
 
   @override
   void initState() {
     _getAccounts();
+    _handleMessage();
   }
 
   @override
@@ -220,48 +225,48 @@ class _AccountListState extends State<AccountListPage> {
               child: widget.accounts == null
                   ? Column(children: [])
                   : Column(
-                      children: [
-                        SizedBox(
-                          height: ScreenUtil().setHeight(11),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '${widget.accounts!.accounts.first.name}',
-                            style: TextStyle(
-                                fontSize: ScreenUtil().setSp(15),
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        SizedBox(
-                          height: ScreenUtil().setHeight(6),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '${widget.accounts!.accounts.first.number}',
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(20),
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Container(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            '${NumberFormat('###,###,###,###').format(widget.accounts!.accounts.first.balance)}원',
-                            style: TextStyle(
-                              fontSize: ScreenUtil().setSp(20),
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: ScreenUtil().setHeight(10),
-                        ),
-                      ],
+                children: [
+                  SizedBox(
+                    height: ScreenUtil().setHeight(11),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '${widget.accounts!.accounts.first.name}',
+                      style: TextStyle(
+                          fontSize: ScreenUtil().setSp(15),
+                          fontWeight: FontWeight.w600),
                     ),
+                  ),
+                  SizedBox(
+                    height: ScreenUtil().setHeight(6),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '${widget.accounts!.accounts.first.number}',
+                      style: TextStyle(
+                        fontSize: ScreenUtil().setSp(20),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '${NumberFormat('###,###,###,###').format(widget.accounts!.accounts.first.balance)}원',
+                      style: TextStyle(
+                        fontSize: ScreenUtil().setSp(20),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: ScreenUtil().setHeight(10),
+                  ),
+                ],
+              ),
               style: ElevatedButton.styleFrom(
                 splashFactory: NoSplash.splashFactory,
                 animationDuration: Duration(days: 10000),
@@ -289,7 +294,7 @@ class _AccountListState extends State<AccountListPage> {
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: widget.accounts == null ||
-                            widget.accounts!.accounts.length == 1
+                        widget.accounts!.accounts.length == 1
                         ? 0
                         : widget.accounts!.accounts.length - 1,
                     itemBuilder: (BuildContext context, int index) {
@@ -335,9 +340,9 @@ class _AccountListState extends State<AccountListPage> {
                                   ),
                                   Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         '${widget.accounts!.accounts[index + 1].name}',
@@ -429,7 +434,11 @@ class _AccountListState extends State<AccountListPage> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await LaunchApp.openApp(
+                  androidPackageName: 'com.wooribank.smart.npib'
+                );
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -472,104 +481,105 @@ class _AccountListState extends State<AccountListPage> {
         showDialog(
             context: context,
             builder: (context) => Dialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              ),
+              child: Container(
+                height: ScreenUtil().setHeight(200),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFF3297F7), width: 2),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(25.0),
                   ),
-                  child: Container(
-                    height: ScreenUtil().setHeight(200),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFF3297F7), width: 2),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(25.0),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      height: ScreenUtil().setHeight(40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '알림',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF3297F7),
+                              fontWeight: FontWeight.w600,
+                              fontSize: ScreenUtil().setSp(17),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: ScreenUtil().setHeight(40),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '알림',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF3297F7),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: ScreenUtil().setSp(17),
-                                ),
-                              ),
-                            ],
+                    Container(
+                      color: Color(0xFF3297F7),
+                      width: double.infinity,
+                      height: ScreenUtil().setHeight(100),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '로그아웃 하시겠습니까?',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: ScreenUtil().setSp(16),
+                            ),
                           ),
-                        ),
-                        Container(
-                          color: Color(0xFF3297F7),
-                          width: double.infinity,
-                          height: ScreenUtil().setHeight(100),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '로그아웃 하시겠습니까?',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: ScreenUtil().setSp(16),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: ScreenUtil().setHeight(50),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: ScreenUtil().setHeight(50),
-                                width: ScreenUtil().setWidth(120),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRouteWithoutAnimation(
-                                        builder: (context) => FirstPage(),
-                                      ),
-                                    );
-                                  },
-                                  child:
-                                      Image.asset('assets/button_accept.png'),
-                                  style: ElevatedButton.styleFrom(
-                                    shadowColor: Colors.transparent,
-                                    primary: Colors.white,
-                                    onSurface: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: ScreenUtil().setHeight(50),
-                                width: ScreenUtil().setWidth(120),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child:
-                                      Image.asset('assets/button_decline.png'),
-                                  style: ElevatedButton.styleFrom(
-                                    shadowColor: Colors.transparent,
-                                    primary: Colors.white,
-                                    onSurface: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ));
+                    Container(
+                      height: ScreenUtil().setHeight(50),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: ScreenUtil().setHeight(50),
+                            width: ScreenUtil().setWidth(120),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                _firebaseMessaging.deleteToken();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRouteWithoutAnimation(
+                                    builder: (context) => FirstPage(),
+                                  ),
+                                );
+                              },
+                              child:
+                              Image.asset('assets/button_accept.png'),
+                              style: ElevatedButton.styleFrom(
+                                shadowColor: Colors.transparent,
+                                primary: Colors.white,
+                                onSurface: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(50),
+                            width: ScreenUtil().setWidth(120),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child:
+                              Image.asset('assets/button_decline.png'),
+                              style: ElevatedButton.styleFrom(
+                                shadowColor: Colors.transparent,
+                                primary: Colors.white,
+                                onSurface: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ));
         return true;
       },
     );
@@ -626,6 +636,137 @@ class _AccountListState extends State<AccountListPage> {
         },
       );
     }
+  }
+
+  void _handleMessage() {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+    var initializationSettingsAndroid =
+    new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    FirebaseMessaging.onMessage.listen(
+          (RemoteMessage message) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              ),
+              child: Container(
+                height: ScreenUtil().setHeight(200),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFF3297F7), width: 2),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(25.0),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      height: ScreenUtil().setHeight(40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '착오송금액 반환요청 알림',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF3297F7),
+                              fontWeight: FontWeight.w600,
+                              fontSize: ScreenUtil().setSp(17),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      color: Color(0xFF3297F7),
+                      width: double.infinity,
+                      height: ScreenUtil().setHeight(100),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${message.notification!.body}\n확인하시겠습니까?',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: ScreenUtil().setSp(13),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: ScreenUtil().setHeight(50),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: ScreenUtil().setHeight(50),
+                            width: ScreenUtil().setWidth(120),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRouteWithoutAnimation(
+                                    builder: (context) => ReceivedReturnRequestListPage(
+                                      userId: widget.userId,
+                                      password: widget.password,
+                                      name: widget.name,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Image.asset('assets/button_accept.png'),
+                              style: ElevatedButton.styleFrom(
+                                shadowColor: Colors.transparent,
+                                primary: Colors.white,
+                                onSurface: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(50),
+                            width: ScreenUtil().setWidth(120),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRouteWithoutAnimation(
+                                    builder: (context) => AccountListPage(
+                                      userId: widget.userId,
+                                      password: widget.password,
+                                      name: widget.name,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Image.asset('assets/button_decline.png'),
+                              style: ElevatedButton.styleFrom(
+                                shadowColor: Colors.transparent,
+                                primary: Colors.white,
+                                onSurface: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }
 

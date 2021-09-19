@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:wooribank_error_remittance/view/confirm_make_return_request_page.dart';
 import 'package:http/http.dart' as http;
-import 'package:wooribank_error_remittance/view/sent_return_request_list_page.dart';
 
 class EnterReturnRequestInfoPage extends StatefulWidget {
   final String userId;

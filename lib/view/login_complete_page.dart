@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wooribank_error_remittance/view/account_list_page.dart';
-import 'package:wooribank_error_remittance/view/sign_up_page.dart';
 
 class LoginCompletePage extends StatelessWidget {
   final String userId;

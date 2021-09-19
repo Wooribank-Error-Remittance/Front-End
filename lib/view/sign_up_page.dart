@@ -157,7 +157,7 @@ class _SignUpState extends State<SignUpPage> {
 
     http.Response response2 = await http.post(
       Uri.parse(
-          "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/account/update/all"),
+          "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/accounts/update"),
       headers: {
         "content-type": "application/json",
       },

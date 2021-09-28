@@ -3,7 +3,7 @@
 착오송금 반환 서비스(2021.09.01 ~ 진행중)
 
 ## 프로젝트 구조
-![image](https://user-images.githubusercontent.com/71204049/134851686-955d451f-996f-4fd0-9754-c46eac894aab.png)
+![image](https://user-images.githubusercontent.com/71204049/135059995-3bc950d0-ca9f-4cdc-b94b-f9853e3ff164.png)
 
 
 ### 개발환경

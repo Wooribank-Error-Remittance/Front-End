@@ -345,7 +345,7 @@ class _AskAcceptReturnRequestListState
   Future<dynamic> _acceptReturnRequest() async {
     http.Response response = await http.post(
       Uri.parse(
-          "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/return_requests/accept?returnRequestId=${widget.returnRequestId}"),
+          "http://ec2-18-117-35-204.us-east-2.compute.amazonaws.com:8080/v1/return_requests/accept?returnRequestId=${widget.returnRequestId}"),
       headers: {
         "content-type": "application/json",
       },

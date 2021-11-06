@@ -597,7 +597,7 @@ class _AccountStatementState extends State<AccountStatementPage> {
     try {
       http.Response response = await http.get(
         Uri.parse(
-            "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/transactions?accountId=${widget
+            "http://ec2-18-117-35-204.us-east-2.compute.amazonaws.com:8080/v1/transactions?accountId=${widget
                 .accountId}&year=${widget.indexYear}&month=${widget
                 .indexMonth}"),
         headers: {

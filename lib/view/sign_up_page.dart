@@ -141,7 +141,7 @@ class _SignUpState extends State<SignUpPage> {
   Future<dynamic> _SignUpAndLoadAccounts() async {
     http.Response response = await http.post(
       Uri.parse(
-          "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/sign/complete"),
+          "http://ec2-18-117-35-204.us-east-2.compute.amazonaws.com:8080/v1/sign/complete"),
       headers: {
         "content-type": "application/json",
       },
@@ -157,7 +157,7 @@ class _SignUpState extends State<SignUpPage> {
 
     http.Response response2 = await http.post(
       Uri.parse(
-          "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/accounts/update"),
+          "http://ec2-18-117-35-204.us-east-2.compute.amazonaws.com:8080/v1/accounts/update"),
       headers: {
         "content-type": "application/json",
       },

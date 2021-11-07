@@ -18,11 +18,11 @@ class EnterReturnRequestInfoPage extends StatefulWidget {
 
   EnterReturnRequestInfoPage(
       {required this.userId,
-        required this.userPassword,
-        required this.userName,
-        required this.transactionId,
-        required this.transactionAmount,
-        required this.transactionTime});
+      required this.userPassword,
+      required this.userName,
+      required this.transactionId,
+      required this.transactionAmount,
+      required this.transactionTime});
 
   @override
   _EnterReturnRequestInfoState createState() => _EnterReturnRequestInfoState();
@@ -106,7 +106,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                               spreadRadius: 3,
                               blurRadius: 3,
                               offset:
-                              Offset(0, 3), // changes position of shadow
+                                  Offset(0, 3), // changes position of shadow
                             ),
                           ],
                         ),
@@ -152,7 +152,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                               spreadRadius: 3,
                               blurRadius: 3,
                               offset:
-                              Offset(0, 3), // changes position of shadow
+                                  Offset(0, 3), // changes position of shadow
                             ),
                           ],
                         ),
@@ -202,7 +202,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                               spreadRadius: 3,
                               blurRadius: 3,
                               offset:
-                              Offset(0, 3), // changes position of shadow
+                                  Offset(0, 3), // changes position of shadow
                             ),
                           ],
                         ),
@@ -220,7 +220,9 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                                   width: ScreenUtil().setWidth(15),
                                   height: ScreenUtil().setHeight(15),
                                   child: Checkbox(
-                                    value: checkListValue == '송금액 오기입' ? true : false,
+                                    value: checkListValue == '송금액 오기입'
+                                        ? true
+                                        : false,
                                     onChanged: (check) {
                                       setState(() {
                                         checkListValue = '송금액 오기입';
@@ -252,7 +254,9 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                                   width: ScreenUtil().setWidth(15),
                                   height: ScreenUtil().setHeight(15),
                                   child: Checkbox(
-                                    value: checkListValue == '계좌번호 오기입' ? true : false,
+                                    value: checkListValue == '계좌번호 오기입'
+                                        ? true
+                                        : false,
                                     onChanged: (check) {
                                       setState(() {
                                         checkListValue = '계좌번호 오기입';
@@ -284,7 +288,9 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                                   width: ScreenUtil().setWidth(15),
                                   height: ScreenUtil().setHeight(15),
                                   child: Checkbox(
-                                    value: checkListValue == '거래 취소' ? true : false,
+                                    value: checkListValue == '거래 취소'
+                                        ? true
+                                        : false,
                                     onChanged: (check) {
                                       setState(() {
                                         checkListValue = '거래 취소';
@@ -316,7 +322,8 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                                   width: ScreenUtil().setWidth(15),
                                   height: ScreenUtil().setHeight(15),
                                   child: Checkbox(
-                                    value: checkListValue == '기타' ? true : false,
+                                    value:
+                                        checkListValue == '기타' ? true : false,
                                     onChanged: (check) {
                                       setState(() {
                                         checkListValue = '기타';
@@ -389,9 +396,9 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                                         image: DecorationImage(
                                             image: isChecked
                                                 ? AssetImage(
-                                                'assets/agreement_on.png')
+                                                    'assets/agreement_on.png')
                                                 : AssetImage(
-                                                'assets/agreement_off.png')),
+                                                    'assets/agreement_off.png')),
                                       ),
                                     ),
                                     SizedBox(
@@ -434,7 +441,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                             contentPadding: EdgeInsets.all(0),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(15.0))),
+                                    BorderRadius.all(Radius.circular(15.0))),
                             content: Container(
                               width: 300.0,
                               child: Row(
@@ -481,8 +488,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                           );
                         },
                       );
-
-                    } else if (checkListValue.isEmpty){
+                    } else if (checkListValue.isEmpty) {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -490,7 +496,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                             contentPadding: EdgeInsets.all(0),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(15.0))),
+                                    BorderRadius.all(Radius.circular(15.0))),
                             content: Container(
                               width: 300.0,
                               child: Row(
@@ -537,9 +543,8 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                           );
                         },
                       );
-                    }
-                    else {
-                    _makeReturnRequest();
+                    } else {
+                      _makeReturnRequest();
                     }
                   },
                   icon: Image.asset('assets/button_send.png'),
@@ -556,6 +561,16 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
   }
 
   Future<dynamic> _makeReturnRequest() async {
+    String reason;
+    if (checkListValue == '송금액 오기입') {
+      reason = '송금액 오기입';
+    } else if (checkListValue == '계좌번호 오기입') {
+      reason = '계좌번호 오기입';
+    } else if (checkListValue == '거래 취소') {
+      reason = '거래 취소';
+    } else {
+      reason = reasonController.text;
+    }
     http.Response response = await http.post(
       Uri.parse(
           "http://ec2-18-117-35-204.us-east-2.compute.amazonaws.com:8080/v1/return_requests"),
@@ -564,6 +579,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
       },
       body: json.encode({
         "message": messageController.text,
+        "reason" : reason,
         "transactionId": widget.transactionId,
       }),
     );

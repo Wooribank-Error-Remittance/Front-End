@@ -21,7 +21,9 @@ class _SignUpState extends State<SignUpPage> {
   final idController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordCheckController = TextEditingController();
-  String authMessage = "특수문자,대문자 포함 8자리 이상";
+  int idCheckFlag = 0;
+  int pwCheckFlag = 0;
+  int pwRepCheckFlag = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -59,26 +61,41 @@ class _SignUpState extends State<SignUpPage> {
           ),
           Container(
             width: ScreenUtil().setWidth(300),
-            child: TextField(
+            child: TextFormField(
               controller: idController,
               decoration: InputDecoration(
                 hintText: 'ID',
                 contentPadding: EdgeInsets.all(5.0),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                  color: idCheckFlag == 0
+                      ? Colors.grey
+                      : idCheckFlag == 1
+                          ? Colors.blueAccent
+                          : Colors.red,
+                )),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                  width: ScreenUtil().setSp(2),
+                  color: idCheckFlag == 0
+                      ? Colors.grey
+                      : idCheckFlag == 1
+                          ? Colors.blueAccent
+                          : Colors.red,
+                )),
               ),
-            ),
-          ),
-          SizedBox(
-            height: ScreenUtil().setHeight(5),
-          ),
-          Container(
-            width: ScreenUtil().setWidth(300),
-            child: TextField(
-              obscureText: true,
-              controller: passwordController,
-              decoration: InputDecoration(
-                hintText: 'PW',
-                contentPadding: EdgeInsets.all(5.0),
-              ),
+              onChanged: (value) {
+                RegExp regExp = new RegExp(r'^[a-zA-Z0-9]{4,12}$');
+                setState(() {
+                  if (value.isEmpty) {
+                    idCheckFlag = 0;
+                  } else if (regExp.hasMatch(value!)) {
+                    idCheckFlag = 1;
+                  } else {
+                    idCheckFlag = 2;
+                  }
+                });
+              },
             ),
           ),
           SizedBox(
@@ -86,33 +103,140 @@ class _SignUpState extends State<SignUpPage> {
           ),
           Container(
             alignment: Alignment.centerLeft,
-            child: Text(
-              "          " + authMessage,
-              style: TextStyle(
-                  fontSize: ScreenUtil().setSp(12), color: Colors.lightBlue),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: ScreenUtil().setWidth(34),
+                ),
+                Text(
+                  "영어 대소문자 또는 숫자 4자리 이상 15자리 이내",
+                  style: TextStyle(
+                    fontSize: ScreenUtil().setSp(12),
+                    color: Colors.blueAccent,
+                  ),
+                ),
+              ],
             ),
           ),
           Container(
             width: ScreenUtil().setWidth(300),
-            child: TextField(
+            child: TextFormField(
+              obscureText: true,
+              controller: passwordController,
+              decoration: InputDecoration(
+                hintText: 'PW',
+                contentPadding: EdgeInsets.all(5.0),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: pwCheckFlag == 0
+                        ? Colors.grey
+                        : pwCheckFlag == 1
+                            ? Colors.blueAccent
+                            : Colors.red,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    width: ScreenUtil().setSp(2),
+                    color: pwCheckFlag == 0
+                        ? Colors.grey
+                        : pwCheckFlag == 1
+                            ? Colors.blueAccent
+                            : Colors.red,
+                  ),
+                ),
+              ),
+              onChanged: (value) {
+                RegExp regExp = new RegExp(
+                    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?~^<>,.&+=])[A-Za-z\d$@$!%*#?~^<>,.&+=]{8,15}$');
+                setState(() {
+                  if (value.isEmpty) {
+                    pwCheckFlag = 0;
+                  } else if (regExp.hasMatch(value!)) {
+                    pwCheckFlag = 1;
+                  } else {
+                    pwCheckFlag = 2;
+                  }
+                });
+              },
+            ),
+          ),
+          SizedBox(
+            height: ScreenUtil().setHeight(5),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: ScreenUtil().setWidth(34),
+                ),
+                Text(
+                  "특수문자,대문자,숫자 포함 8자리 이상 15자리 이내",
+                  style: TextStyle(
+                    fontSize: ScreenUtil().setSp(12),
+                    color: Colors.blueAccent,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: ScreenUtil().setWidth(300),
+            child: TextFormField(
               obscureText: true,
               controller: passwordCheckController,
               decoration: InputDecoration(
                 hintText: 'PW 확인',
                 contentPadding: EdgeInsets.all(5.0),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                  color: pwRepCheckFlag == 0
+                      ? Colors.grey
+                      : pwRepCheckFlag == 1
+                          ? Colors.blueAccent
+                          : Colors.red,
+                )),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    width: ScreenUtil().setSp(2),
+                    color: pwRepCheckFlag == 0
+                        ? Colors.grey
+                        : pwRepCheckFlag == 1
+                            ? Colors.blueAccent
+                            : Colors.red,
+                  ),
+                ),
               ),
+              onChanged: (value) {
+                setState(() {
+                  if (passwordCheckController.text.isEmpty) {
+                    pwRepCheckFlag = 0;
+                  } else if (passwordController.text ==
+                      passwordCheckController.text) {
+                    pwRepCheckFlag = 1;
+                  } else {
+                    pwRepCheckFlag = 2;
+                  }
+                });
+              },
             ),
           ),
           Spacer(),
           IconButton(
             onPressed: () {
-              if (passwordController.text != passwordCheckController.text ||
-                  passwordController.text.length < 8) {
+              if (idCheckFlag == 1 && pwCheckFlag == 1 && pwRepCheckFlag == 1) {
+                try {
+                  _SignUpAndLoadAccounts();
+                } finally {}
+              } else {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      content: new Text("\n비밀번호가 올바르지 않습니다."),
+                      content: new Text("\n입력 정보를 확인해주세요."),
                       actions: <Widget>[
                         new FlatButton(
                           child: new Text("확인"),
@@ -124,10 +248,6 @@ class _SignUpState extends State<SignUpPage> {
                     );
                   },
                 );
-              } else {
-                try {
-                  _SignUpAndLoadAccounts();
-                } finally {}
               }
             },
             icon: Image.asset('assets/button_accept.png'),
@@ -173,14 +293,12 @@ class _SignUpState extends State<SignUpPage> {
           builder: (context) => SignUpCompletePage(),
         ),
       );
-    }
-    else {
-      print('no!!');
+    } else {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: new Text("\n오류가 발생했습니다.\n다시 시도해주세요."),
+            content: new Text("\n서버 오류가 발생했습니다."),
             actions: <Widget>[
               new FlatButton(
                 child: new Text("확인"),

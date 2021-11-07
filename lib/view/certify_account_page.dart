@@ -60,15 +60,20 @@ class _CertifyAccountState extends State<CertifyAccountPage> {
                   fontWeight: FontWeight.w800),
             ),
           ),
-          Container(
-            width: ScreenUtil().setWidth(300),
-            child: TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                hintText: '이름 입력',
-                contentPadding: EdgeInsets.all(5.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: ScreenUtil().setWidth(300),
+                child: TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                    hintText: '이름 입력',
+                    contentPadding: EdgeInsets.all(5.0),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
           SizedBox(
             height: ScreenUtil().setHeight(5),
@@ -86,9 +91,12 @@ class _CertifyAccountState extends State<CertifyAccountPage> {
                   ),
                 ),
               ),
-              Text(
-                ' - ',
-                style: TextStyle(fontSize: ScreenUtil().setSp(30)),
+              Container(
+                width: ScreenUtil().setWidth(24),
+                child: Text(
+                  ' - ',
+                  style: TextStyle(fontSize: ScreenUtil().setSp(30)),
+                ),
               ),
               Container(
                 width: ScreenUtil().setWidth(138),
@@ -115,9 +123,12 @@ class _CertifyAccountState extends State<CertifyAccountPage> {
                   ),
                 ),
               ),
-              Text(
-                ' - ',
-                style: TextStyle(fontSize: ScreenUtil().setSp(30)),
+              Container(
+                width: ScreenUtil().setWidth(25),
+                child: Text(
+                  ' - ',
+                  style: TextStyle(fontSize: ScreenUtil().setSp(30)),
+                ),
               ),
               Container(
                 width: ScreenUtil().setWidth(85),
@@ -128,9 +139,12 @@ class _CertifyAccountState extends State<CertifyAccountPage> {
                   ),
                 ),
               ),
-              Text(
-                ' - ',
-                style: TextStyle(fontSize: ScreenUtil().setSp(30)),
+              Container(
+                width: ScreenUtil().setWidth(25),
+                child: Text(
+                  ' - ',
+                  style: TextStyle(fontSize: ScreenUtil().setSp(30)),
+                ),
               ),
               Container(
                 width: ScreenUtil().setWidth(85),
@@ -163,7 +177,7 @@ class _CertifyAccountState extends State<CertifyAccountPage> {
                 width: ScreenUtil().setWidth(12),
               ),
               Container(
-                // width: ScreenUtil().setWidth(100),
+                width: ScreenUtil().setWidth(88),
                 child: ElevatedButton(
                   onPressed: () async {
                     // 인증 요청

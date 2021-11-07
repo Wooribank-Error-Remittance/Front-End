@@ -311,7 +311,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
   Future<dynamic> _makeReturnRequest() async {
     http.Response response = await http.post(
       Uri.parse(
-          "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/return_requests"),
+          "http://ec2-18-117-35-204.us-east-2.compute.amazonaws.com:8080/v1/return_requests"),
       headers: {
         "content-type": "application/json",
       },

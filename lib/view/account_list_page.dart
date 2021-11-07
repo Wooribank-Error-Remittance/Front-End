@@ -589,7 +589,7 @@ class _AccountListState extends State<AccountListPage> {
     try {
       http.Response response = await http.get(
         Uri.parse(
-            "http://ec2-18-118-230-121.us-east-2.compute.amazonaws.com:8080/v1/accounts?userId=${widget.userId}&password=${widget.password}"),
+            "http://ec2-18-117-35-204.us-east-2.compute.amazonaws.com:8080/v1/accounts?userId=${widget.userId}&password=${widget.password}"),
         headers: {
           "content-type": "application/json",
         },

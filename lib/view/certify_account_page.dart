@@ -106,6 +106,7 @@ class _CertifyAccountState extends State<CertifyAccountPage> {
                     hintText: '뒤 7자리',
                     contentPadding: EdgeInsets.all(5.0),
                   ),
+                  obscureText: true,
                 ),
               ),
             ],

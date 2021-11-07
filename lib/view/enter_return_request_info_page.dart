@@ -422,9 +422,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
               Center(
                 child: IconButton(
                   onPressed: () {
-                    if (isChecked) {
-                      _makeReturnRequest();
-                    } else {
+                    if (!isChecked) {
                       FocusScopeNode currentFocus = FocusScope.of(context);
                       if (!currentFocus.hasPrimaryFocus) {
                         currentFocus.unfocus();
@@ -483,6 +481,65 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                           );
                         },
                       );
+
+                    } else if (checkListValue.isEmpty){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            contentPadding: EdgeInsets.all(0),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(15.0))),
+                            content: Container(
+                              width: 300.0,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "\n\n반환 요청 사유를 체크하셔야 합니다.\n",
+                                    style: TextStyle(
+                                      fontSize: ScreenUtil().setSp(15),
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              Column(
+                                children: [
+                                  Divider(
+                                    thickness: 1,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        child: new Text(
+                                          "확인",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shadowColor: Colors.transparent,
+                                          primary: Colors.white,
+                                          onSurface: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
+                    else {
+                    _makeReturnRequest();
                     }
                   },
                   icon: Image.asset('assets/button_send.png'),

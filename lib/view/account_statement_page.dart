@@ -21,21 +21,18 @@ class AccountStatementPage extends StatefulWidget {
   final double accountBalance;
   final int accountId;
   TransactionList? transactions;
-  int indexYear = DateTime
-      .now()
-      .year;
-  int indexMonth = DateTime
-      .now()
-      .month;
+  int indexYear = DateTime.now().year;
+  int indexMonth = DateTime.now().month;
 
-  AccountStatementPage({required this.userId,
-    required this.password,
-    required this.name,
-    required this.accountBank,
-    required this.accountName,
-    required this.accountNumber,
-    required this.accountBalance,
-    required this.accountId});
+  AccountStatementPage(
+      {required this.userId,
+      required this.password,
+      required this.name,
+      required this.accountBank,
+      required this.accountName,
+      required this.accountNumber,
+      required this.accountBalance,
+      required this.accountId});
 
   @override
   _AccountStatementState createState() => _AccountStatementState();
@@ -62,12 +59,11 @@ class _AccountStatementState extends State<AccountStatementPage> {
               Navigator.push(
                 context,
                 MaterialPageRouteWithoutAnimation(
-                  builder: (context) =>
-                      AccountListPage(
-                        userId: widget.userId,
-                        password: widget.password,
-                        name: widget.name,
-                      ),
+                  builder: (context) => AccountListPage(
+                    userId: widget.userId,
+                    password: widget.password,
+                    name: widget.name,
+                  ),
                 ),
               );
             },
@@ -136,8 +132,7 @@ class _AccountStatementState extends State<AccountStatementPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        '${NumberFormat('###,###,###,###').format(
-                            widget.accountBalance)} 원',
+                        '${NumberFormat('###,###,###,###').format(widget.accountBalance)} 원',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: ScreenUtil().setSp(16),
@@ -223,355 +218,382 @@ class _AccountStatementState extends State<AccountStatementPage> {
             Expanded(
               child: widget.transactions == null
                   ? ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: 0,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [],
-                  );
-                },
-              )
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: 0,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [],
+                        );
+                      },
+                    )
                   : ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: widget.transactions == null
-                    ? 0
-                    : widget.transactions!.transactions.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          if (widget.transactions!.transactions[index]
-                              .infoTarget ==
-                              "sender" &&
-                              widget.transactions!.transactions[index]
-                                  .isReturnRequested ==
-                                  false) {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Dialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(25.0)),
-                                  ),
-                                  child: Container(
-                                    height: ScreenUtil().setHeight(200),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Color(0xFF3297F7),
-                                          width: 2),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(25.0),
-                                      ),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          height:
-                                          ScreenUtil().setHeight(40),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '착오송금액 반환 요청',
-                                                textAlign:
-                                                TextAlign.center,
-                                                style: TextStyle(
-                                                  color:
-                                                  Color(0xFF3297F7),
-                                                  fontWeight:
-                                                  FontWeight.w600,
-                                                  fontSize: ScreenUtil()
-                                                      .setSp(17),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          color: Color(0xFF3297F7),
-                                          width: double.infinity,
-                                          height:
-                                          ScreenUtil().setHeight(100),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '해당 거래내역에 대해\n반환을 요청하시겠습니까?',
-                                                textAlign:
-                                                TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight:
-                                                  FontWeight.w600,
-                                                  fontSize: ScreenUtil()
-                                                      .setSp(16),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          height:
-                                          ScreenUtil().setHeight(50),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                height: ScreenUtil()
-                                                    .setHeight(50),
-                                                width: ScreenUtil()
-                                                    .setWidth(120),
-                                                child: ElevatedButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(
-                                                        context);
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRouteWithoutAnimation(
-                                                        builder: (context) =>
-                                                            AskMakeReturnRequestPage(
-                                                              userId: widget.userId,
-                                                              userPassword: widget.password,
-                                                              userName: widget.name,
-                                                              bankName: widget.accountBank,
-                                                              accountNumber: widget.accountNumber,
-                                                              transactionId: widget.transactions!.transactions[index].id,
-                                                              transactionAmount: widget.transactions!.transactions[index].amount,
-                                                              transactionTime: widget.transactions!.transactions[index].timeOfOccurrence,
-                                                            ),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Image.asset(
-                                                      'assets/button_accept.png'),
-                                                  style: ElevatedButton
-                                                      .styleFrom(
-                                                    shadowColor: Colors
-                                                        .transparent,
-                                                    primary: Colors.white,
-                                                    onSurface:
-                                                    Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: ScreenUtil()
-                                                    .setHeight(50),
-                                                width: ScreenUtil()
-                                                    .setWidth(120),
-                                                child: ElevatedButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(
-                                                        context);
-                                                  },
-                                                  child: Image.asset(
-                                                      'assets/button_decline.png'),
-                                                  style: ElevatedButton
-                                                      .styleFrom(
-                                                    shadowColor: Colors
-                                                        .transparent,
-                                                    primary: Colors.white,
-                                                    onSurface:
-                                                    Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: widget.transactions == null
+                          ? 0
+                          : widget.transactions!.transactions.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
                           children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: ScreenUtil().setHeight(3),
-                                ),
-                                Text(
-                                  DateTime
-                                      .parse(widget
-                                      .transactions!
-                                      .transactions[index]
-                                      .timeOfOccurrence)
-                                      .month <
-                                      10
-                                      ? DateTime
-                                      .parse(widget
-                                      .transactions!
-                                      .transactions[index]
-                                      .timeOfOccurrence)
-                                      .day <
-                                      10
-                                      ? '0${DateTime
-                                      .parse(
-                                      widget.transactions!.transactions[index]
-                                          .timeOfOccurrence)
-                                      .month}.0${DateTime
-                                      .parse(
-                                      widget.transactions!.transactions[index]
-                                          .timeOfOccurrence)
-                                      .day}'
-                                      : '0${DateTime
-                                      .parse(
-                                      widget.transactions!.transactions[index]
-                                          .timeOfOccurrence)
-                                      .month}.${DateTime
-                                      .parse(
-                                      widget.transactions!.transactions[index]
-                                          .timeOfOccurrence)
-                                      .day}'
-                                      : DateTime
-                                      .parse(widget
-                                      .transactions!
-                                      .transactions[index]
-                                      .timeOfOccurrence)
-                                      .day <
-                                      10
-                                      ? '${DateTime
-                                      .parse(
-                                      widget.transactions!.transactions[index]
-                                          .timeOfOccurrence)
-                                      .month}.0${DateTime
-                                      .parse(
-                                      widget.transactions!.transactions[index]
-                                          .timeOfOccurrence)
-                                      .day}'
-                                      : '${DateTime
-                                      .parse(
-                                      widget.transactions!.transactions[index]
-                                          .timeOfOccurrence)
-                                      .month}.${DateTime
-                                      .parse(
-                                      widget.transactions!.transactions[index]
-                                          .timeOfOccurrence)
-                                      .day}',
-                                  style: TextStyle(
-                                    color: Color(0xFF3A3A3A),
-                                    fontSize: ScreenUtil().setSp(15),
-                                    fontWeight: FontWeight.w800,
+                            ElevatedButton(
+                              onPressed: () {
+                                if (widget.transactions!.transactions[index]
+                                            .infoTarget ==
+                                        "sender" &&
+                                    widget.transactions!.transactions[index]
+                                            .isReturnRequested ==
+                                        false) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(25.0)),
+                                        ),
+                                        child: Container(
+                                          height: ScreenUtil().setHeight(200),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Color(0xFF3297F7),
+                                                width: 2),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(25.0),
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                height:
+                                                    ScreenUtil().setHeight(40),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      '착오송금액 반환 요청',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        color:
+                                                            Color(0xFF3297F7),
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: ScreenUtil()
+                                                            .setSp(17),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                color: Color(0xFF3297F7),
+                                                width: double.infinity,
+                                                height:
+                                                    ScreenUtil().setHeight(100),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      '해당 거래내역에 대해\n반환을 요청하시겠습니까?',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: ScreenUtil()
+                                                            .setSp(16),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                height:
+                                                    ScreenUtil().setHeight(50),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: ScreenUtil()
+                                                          .setHeight(50),
+                                                      width: ScreenUtil()
+                                                          .setWidth(120),
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRouteWithoutAnimation(
+                                                              builder: (context) =>
+                                                                  AskMakeReturnRequestPage(
+                                                                userId: widget
+                                                                    .userId,
+                                                                userPassword:
+                                                                    widget
+                                                                        .password,
+                                                                userName:
+                                                                    widget.name,
+                                                                bankName: widget
+                                                                    .accountBank,
+                                                                accountNumber:
+                                                                    widget
+                                                                        .accountNumber,
+                                                                transactionId: widget
+                                                                    .transactions!
+                                                                    .transactions[
+                                                                        index]
+                                                                    .id,
+                                                                transactionAmount: widget
+                                                                    .transactions!
+                                                                    .transactions[
+                                                                        index]
+                                                                    .amount,
+                                                                transactionTime: widget
+                                                                    .transactions!
+                                                                    .transactions[
+                                                                        index]
+                                                                    .timeOfOccurrence,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        child: Image.asset(
+                                                            'assets/button_accept.png'),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          shadowColor: Colors
+                                                              .transparent,
+                                                          primary: Colors.white,
+                                                          onSurface:
+                                                              Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: ScreenUtil()
+                                                          .setHeight(50),
+                                                      width: ScreenUtil()
+                                                          .setWidth(120),
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Image.asset(
+                                                            'assets/button_decline.png'),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          shadowColor: Colors
+                                                              .transparent,
+                                                          primary: Colors.white,
+                                                          onSurface:
+                                                              Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: ScreenUtil().setHeight(3),
+                                      ),
+                                      Text(
+                                        DateTime.parse(widget
+                                                        .transactions!
+                                                        .transactions[index]
+                                                        .timeOfOccurrence)
+                                                    .month <
+                                                10
+                                            ? DateTime.parse(widget
+                                                            .transactions!
+                                                            .transactions[index]
+                                                            .timeOfOccurrence)
+                                                        .day <
+                                                    10
+                                                ? '0${DateTime.parse(widget.transactions!.transactions[index].timeOfOccurrence).month}.0${DateTime.parse(widget.transactions!.transactions[index].timeOfOccurrence).day}'
+                                                : '0${DateTime.parse(widget.transactions!.transactions[index].timeOfOccurrence).month}.${DateTime.parse(widget.transactions!.transactions[index].timeOfOccurrence).day}'
+                                            : DateTime.parse(widget
+                                                            .transactions!
+                                                            .transactions[index]
+                                                            .timeOfOccurrence)
+                                                        .day <
+                                                    10
+                                                ? '${DateTime.parse(widget.transactions!.transactions[index].timeOfOccurrence).month}.0${DateTime.parse(widget.transactions!.transactions[index].timeOfOccurrence).day}'
+                                                : '${DateTime.parse(widget.transactions!.transactions[index].timeOfOccurrence).month}.${DateTime.parse(widget.transactions!.transactions[index].timeOfOccurrence).day}',
+                                        style: TextStyle(
+                                          color: Color(0xFF3A3A3A),
+                                          fontSize: ScreenUtil().setSp(15),
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: ScreenUtil().setWidth(10),
-                            ),
-                            Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: ScreenUtil().setHeight(4),
-                                ),
-                                Text(
-                                  widget.transactions!.transactions[index]
-                                      .infoTarget ==
-                                      "sender"
-                                      ? '${widget.transactions!
-                                      .transactions[index].receiverName}'
-                                      : '${widget.transactions!
-                                      .transactions[index].senderName}',
-                                  style: TextStyle(
-                                    color: Color(0xFF000000),
-                                    fontSize: ScreenUtil().setSp(15),
-                                    fontWeight: FontWeight.w400,
+                                  SizedBox(
+                                    width: ScreenUtil().setWidth(10),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: ScreenUtil().setHeight(5),
-                                ),
-                                Text(
-                                  widget.transactions!.transactions[index]
-                                      .infoTarget ==
-                                      "sender"
-                                      ? '${widget.transactions!
-                                      .transactions[index].sendingMethod}'
-                                      : '${widget.transactions!
-                                      .transactions[index].receivingMethod}',
-                                  style: TextStyle(
-                                    color: Color(0xFF747474),
-                                    fontSize: ScreenUtil().setSp(14),
-                                    fontWeight: FontWeight.w400,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: ScreenUtil().setHeight(4),
+                                      ),
+                                      Text(
+                                        widget.transactions!.transactions[index]
+                                                    .infoTarget ==
+                                                "sender"
+                                            ? '${widget.transactions!.transactions[index].receiverName}'
+                                            : '${widget.transactions!.transactions[index].senderName}',
+                                        style: TextStyle(
+                                          color: Color(0xFF000000),
+                                          fontSize: ScreenUtil().setSp(15),
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: ScreenUtil().setHeight(5),
+                                      ),
+                                      Text(
+                                        widget.transactions!.transactions[index]
+                                                    .infoTarget ==
+                                                "sender"
+                                            ? '${widget.transactions!.transactions[index].sendingMethod}'
+                                            : '${widget.transactions!.transactions[index].receivingMethod}',
+                                        style: TextStyle(
+                                          color: Color(0xFF747474),
+                                          fontSize: ScreenUtil().setSp(14),
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  widget.transactions!.transactions[index]
-                                      .infoTarget ==
-                                      "sender"
-                                      ? '-${widget.transactions!
-                                      .transactions[index].amount
-                                      .toStringAsFixed(0)} 원'
-                                      : '+${widget.transactions!
-                                      .transactions[index].amount
-                                      .toStringAsFixed(0)} 원',
-                                  style: TextStyle(
-                                    color: widget
-                                        .transactions!
-                                        .transactions[index]
-                                        .infoTarget ==
-                                        "sender"
-                                        ? Color(0xFFFF0000)
-                                        : Color(0xFF3297F7),
-                                    fontSize: ScreenUtil().setSp(14),
-                                    fontWeight: FontWeight.w400,
+                                  Spacer(),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      (widget.transactions!.transactions[index]
+                                                      .infoTarget ==
+                                                  "sender" &&
+                                              widget
+                                                      .transactions!
+                                                      .transactions[index]
+                                                      .isReturnRequested ==
+                                                  true)
+                                          ? Container(
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: ScreenUtil()
+                                                        .setWidth(15),
+                                                    height: ScreenUtil()
+                                                        .setHeight(13),
+                                                    child: Image(
+                                                      color: Color(0xFFFD7373),
+                                                      image: AssetImage(
+                                                          'assets/icons/return_requested.png'),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    ' 반환 요청 완료',
+                                                    style: TextStyle(
+                                                      fontSize: ScreenUtil()
+                                                          .setSp(12),
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Color(0xFFFD7373),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          : Container(
+                                              child: Text(
+                                                '',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            widget.transactions!.transactions[index]
+                                                        .infoTarget ==
+                                                    "sender"
+                                                ? '-${widget.transactions!.transactions[index].amount.toStringAsFixed(0)} 원'
+                                                : '+${widget.transactions!.transactions[index].amount.toStringAsFixed(0)} 원',
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              color: widget
+                                                          .transactions!
+                                                          .transactions[index]
+                                                          .infoTarget ==
+                                                      "sender"
+                                                  ? Color(0xFFFF0000)
+                                                  : Color(0xFF3297F7),
+                                              fontSize: ScreenUtil().setSp(14),
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
+                                  SizedBox(
+                                    width: ScreenUtil().setWidth(6),
+                                  )
+                                ],
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                splashFactory: NoSplash.splashFactory,
+                                shadowColor: Colors.transparent,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0),
                                 ),
-                              ],
+                                padding: EdgeInsets.fromLTRB(
+                                    ScreenUtil().setSp(14),
+                                    ScreenUtil().setSp(10),
+                                    ScreenUtil().setSp(14),
+                                    ScreenUtil().setSp(12)),
+                                fixedSize: Size(double.infinity,
+                                    ScreenUtil().setHeight(70)),
+                                primary: Colors.white, // background
+                              ),
                             ),
-                            SizedBox(
-                              width: ScreenUtil().setWidth(6),
-                            )
+                            Divider(
+                              height: 2,
+                              color: Color(0xFFE2DFDF),
+                            ),
                           ],
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          splashFactory: NoSplash.splashFactory,
-                          shadowColor: Colors.transparent,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0),
-                          ),
-                          padding: EdgeInsets.fromLTRB(
-                              ScreenUtil().setSp(14),
-                              ScreenUtil().setSp(10),
-                              ScreenUtil().setSp(14),
-                              ScreenUtil().setSp(12)),
-                          fixedSize: Size(double.infinity,
-                              ScreenUtil().setHeight(70)),
-                          primary: Colors.white, // background
-                        ),
-                      ),
-                      Divider(
-                        height: 2,
-                        color: Color(0xFFE2DFDF),
-                      ),
-                    ],
-                  );
-                },
-              ),
+                        );
+                      },
+                    ),
             ),
           ],
         ),
@@ -580,12 +602,11 @@ class _AccountStatementState extends State<AccountStatementPage> {
         Navigator.push(
           context,
           MaterialPageRouteWithoutAnimation(
-            builder: (context) =>
-                AccountListPage(
-                  userId: widget.userId,
-                  password: widget.password,
-                  name: widget.name,
-                ),
+            builder: (context) => AccountListPage(
+              userId: widget.userId,
+              password: widget.password,
+              name: widget.name,
+            ),
           ),
         );
         return true;
@@ -597,9 +618,7 @@ class _AccountStatementState extends State<AccountStatementPage> {
     try {
       http.Response response = await http.get(
         Uri.parse(
-            "http://ec2-18-117-35-204.us-east-2.compute.amazonaws.com:8080/v1/transactions?accountId=${widget
-                .accountId}&year=${widget.indexYear}&month=${widget
-                .indexMonth}"),
+            "http://ec2-18-117-35-204.us-east-2.compute.amazonaws.com:8080/v1/transactions?accountId=${widget.accountId}&year=${widget.indexYear}&month=${widget.indexMonth}"),
         headers: {
           "content-type": "application/json",
         },

@@ -32,6 +32,8 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
   GlobalKey<ScaffoldState> _key = GlobalKey();
   bool isChecked = false;
   final messageController = TextEditingController();
+  final reasonController = TextEditingController();
+  String checkListValue = '';
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: ScreenUtil().setHeight(40),
+                height: ScreenUtil().setHeight(25),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -140,7 +142,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                       Container(
                         padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
                         width: ScreenUtil().setWidth(282),
-                        height: ScreenUtil().setHeight(224),
+                        height: ScreenUtil().setHeight(140),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -171,6 +173,201 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                               borderSide: BorderSide(color: Colors.transparent),
                             ),
                           ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: ScreenUtil().setHeight(20),
+                      ),
+                      Text(
+                        '사유 체크란',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: ScreenUtil().setSp(16),
+                            color: Color(0xFF7E7E7E),
+                            fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(
+                        height: ScreenUtil().setHeight(10),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                        width: ScreenUtil().setWidth(282),
+                        height: ScreenUtil().setHeight(130),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 3,
+                              blurRadius: 3,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: ScreenUtil().setHeight(20),
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(10),
+                                ),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(15),
+                                  height: ScreenUtil().setHeight(15),
+                                  child: Checkbox(
+                                    value: checkListValue == '송금액 오기입'
+                                        ? true
+                                        : false,
+                                    onChanged: (check) {
+                                      setState(() {
+                                        checkListValue = '송금액 오기입';
+                                      });
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(10),
+                                ),
+                                Text(
+                                  '송금액 오기입',
+                                  style: TextStyle(
+                                    color: Color(0xFF555555),
+                                    fontSize: ScreenUtil().setSp(12),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: ScreenUtil().setHeight(10),
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(10),
+                                ),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(15),
+                                  height: ScreenUtil().setHeight(15),
+                                  child: Checkbox(
+                                    value: checkListValue == '계좌번호 오기입'
+                                        ? true
+                                        : false,
+                                    onChanged: (check) {
+                                      setState(() {
+                                        checkListValue = '계좌번호 오기입';
+                                      });
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(10),
+                                ),
+                                Text(
+                                  '계좌번호 오기입',
+                                  style: TextStyle(
+                                    color: Color(0xFF555555),
+                                    fontSize: ScreenUtil().setSp(12),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: ScreenUtil().setHeight(10),
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(10),
+                                ),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(15),
+                                  height: ScreenUtil().setHeight(15),
+                                  child: Checkbox(
+                                    value: checkListValue == '거래 취소'
+                                        ? true
+                                        : false,
+                                    onChanged: (check) {
+                                      setState(() {
+                                        checkListValue = '거래 취소';
+                                      });
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(10),
+                                ),
+                                Text(
+                                  '거래 취소',
+                                  style: TextStyle(
+                                    color: Color(0xFF555555),
+                                    fontSize: ScreenUtil().setSp(12),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: ScreenUtil().setHeight(10),
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(10),
+                                ),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(15),
+                                  height: ScreenUtil().setHeight(15),
+                                  child: Checkbox(
+                                    value:
+                                        checkListValue == '기타' ? true : false,
+                                    onChanged: (check) {
+                                      setState(() {
+                                        checkListValue = '기타';
+                                      });
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(10),
+                                ),
+                                Text(
+                                  '기타',
+                                  style: TextStyle(
+                                    color: Color(0xFF555555),
+                                    fontSize: ScreenUtil().setSp(12),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(10),
+                                ),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(20),
+                                  width: ScreenUtil().setWidth(180),
+                                  child: TextField(
+                                    controller: reasonController,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                          // this
+                          //     .checkList1
+                          //     .map<Widget>((String v) => Container(
+                          //           margin: EdgeInsets.all(20.0),
+                          //           child: CheckboxListTile(
+                          //             onChanged: (bool? check) => setState(
+                          //                 () => this.checkListValue1 = v),
+                          //             title: Text(v),
+                          //             value: this.checkListValue1 == v
+                          //                 ? true
+                          //                 : false,
+                          //           ),
+                          //         ))
+                          //     .toList(),
                         ),
                       ),
                       SizedBox(
@@ -232,9 +429,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
               Center(
                 child: IconButton(
                   onPressed: () {
-                    if (isChecked) {
-                      _makeReturnRequest();
-                    } else {
+                    if (!isChecked) {
                       FocusScopeNode currentFocus = FocusScope.of(context);
                       if (!currentFocus.hasPrimaryFocus) {
                         currentFocus.unfocus();
@@ -293,6 +488,63 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
                           );
                         },
                       );
+                    } else if (checkListValue.isEmpty) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            contentPadding: EdgeInsets.all(0),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0))),
+                            content: Container(
+                              width: 300.0,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "\n\n반환 요청 사유를 체크하셔야 합니다.\n",
+                                    style: TextStyle(
+                                      fontSize: ScreenUtil().setSp(15),
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              Column(
+                                children: [
+                                  Divider(
+                                    thickness: 1,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        child: new Text(
+                                          "확인",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shadowColor: Colors.transparent,
+                                          primary: Colors.white,
+                                          onSurface: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      _makeReturnRequest();
                     }
                   },
                   icon: Image.asset('assets/button_send.png'),
@@ -309,6 +561,16 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
   }
 
   Future<dynamic> _makeReturnRequest() async {
+    String reason;
+    if (checkListValue == '송금액 오기입') {
+      reason = '송금액 오기입';
+    } else if (checkListValue == '계좌번호 오기입') {
+      reason = '계좌번호 오기입';
+    } else if (checkListValue == '거래 취소') {
+      reason = '거래 취소';
+    } else {
+      reason = reasonController.text;
+    }
     http.Response response = await http.post(
       Uri.parse(
           "http://ec2-18-117-35-204.us-east-2.compute.amazonaws.com:8080/v1/return_requests"),
@@ -317,6 +579,7 @@ class _EnterReturnRequestInfoState extends State<EnterReturnRequestInfoPage> {
       },
       body: json.encode({
         "message": messageController.text,
+        "reason" : reason,
         "transactionId": widget.transactionId,
       }),
     );

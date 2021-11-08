@@ -89,7 +89,7 @@ class _SignUpState extends State<SignUpPage> {
                 setState(() {
                   if (value.isEmpty) {
                     idCheckFlag = 0;
-                  } else if (regExp.hasMatch(value!)) {
+                  } else if (regExp.hasMatch(value)) {
                     idCheckFlag = 1;
                   } else {
                     idCheckFlag = 2;
@@ -153,7 +153,7 @@ class _SignUpState extends State<SignUpPage> {
                 setState(() {
                   if (value.isEmpty) {
                     pwCheckFlag = 0;
-                  } else if (regExp.hasMatch(value!)) {
+                  } else if (regExp.hasMatch(value)) {
                     pwCheckFlag = 1;
                   } else {
                     pwCheckFlag = 2;
